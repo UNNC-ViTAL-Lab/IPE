@@ -1,0 +1,3022 @@
+<!DOCTYPE html>
+<html>
+<!-- XML file produced from file: manual.tex
+     using Hyperlatex v 19.01 (c) Otfried Cheong
+     on Emacs 25.2.2, Thu May  2 11:24:33 2019 -->
+<head>
+<title>Ipe Manual</title>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,
+    initial-scale=1" /><link rel="stylesheet" href="manual.css" />
+<style type="text/css">
+.tex-maketitle { text-align: center; }
+div.tex-abstract { margin-left: 20%; margin-right: 10%; }
+h3.tex-abstract  { text-align: center; }
+div.tex-verse, div.tex-quote, div.tex-quotation, div.tex-math {
+  margin-left : 10%; 
+  margin-right : 10%;
+}
+.tex-normalsize { font-size: medium; }
+.tex-large { font-size: large; }
+.tex-Large { font-size: x-large; }
+.tex-LARGE { font-size: xx-large; }
+.tex-huge { font-size: xx-large; }
+.tex-Huge { font-size: xx-large; }
+.tex-small { font-size: small; }
+.tex-footnotesize { font-size: x-small; }
+.tex-scriptsize { font-size: x-small; }
+.tex-tiny { font-size: xx-small; }
+.tex-emph { font-style: italic; }
+.tex-strong { font-weight: bold; }
+.tex-bf { font-weight: bold; }
+.tex-it { font-style: italic; }
+.tex-tt { font-family: monospace; }
+.tex-underline { text-decoration: underline; }
+.tex-sf { font: sans-serif; }
+.tex-sc { font-variant: small-caps; }
+.tex-center { text-align: center; }
+.tex-mbox { white-space: nowrap; }
+.tex-verbatim, .tex-example {
+  border-radius: 16px;
+  box-shadow: #387BBE 0px 0px 12px 0px;
+  padding: 1em 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+dl.tex-description {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+dl.tex-description dt {
+  float: left;
+  clear: left;
+  color: green;
+  width: 200px;
+}
+dl.tex-description dd {
+  margin-left: 200px;
+  margin-right: 100px;
+}
+</style>
+
+</head>
+<body bgcolor="#ffffe6">
+<div data-role="page">
+
+<div data-role="content">
+
+
+    <h1 class="tex-maketitle">The Ipe manual</h1>
+    <h2 class="tex-maketitle">Otfried Cheong</h2>
+    <h3 class="tex-maketitle">May 2, 2019</h3>
+    <p><p>
+  This manual is for Ipe 7.2.12.
+<p>  This manual is also available on a <a href="onepage.html">single page</a>
+  for easier searching.
+<p>  For writing ipelets, also see the <a href="index.html">Ipe library
+    documentation</a>.
+<ul>
+<li><a href="#id1">1 Introduction</a>
+<li><a href="#id2">2 About Ipe files</a>
+<li><a href="#id7">3 General Concepts</a>
+<li><a href="#id24">4 Object types</a>
+<li><a href="#sec:snapping">5 Snapping</a>
+<li><a href="#sec:stylesheets">6 Stylesheets</a>
+<li><a href="#sec:presentations">7 Presentations</a>
+<li><a href="#id72">8 Advanced topics</a>
+<li><a href="#sec:xml">9 The Ipe file format</a>
+<li><a href="#id141">10 Using Ipe figures in Latex</a>
+<li><a href="#id142">11 The command line programs</a>
+<li><a href="#sec:acknowledgments">12 History and acknowledgments</a>
+<li><a href="#sec:copyright">13 Copyright</a>
+<li><a href="manual_ipe_copyright.html">Contents</a>
+<li><a href="onepage_2.html">Footnotes</a>
+</ul>
+
+
+
+<h1 id="id1">1 Introduction</h1>
+<p>Preparing figures for a scientific article is a time-consuming
+process.  If you are using the LaTeX document preparation system in
+an environment where you can include (encapsulated) Postscript figures
+or PDF figures, then the extensible drawing editor Ipe may be able to
+help you in the task.  Ipe allows you to prepare and edit drawings
+containing a variety of basic geometry primitives like lines, splines,
+polygons, circles etc.  
+<p>Ipe also allows you to add text to your drawings, and unlike most
+other drawing programs, Ipe treats these text object as LaTeX
+text. This has the advantage that all usual LaTeX commands can be
+used within the drawing, which makes the inclusion of mathematical
+formulae (or even simple labels like "<i>q<sub>i</sub></i>") much simpler.  Ipe
+processes your LaTeX source and includes its Postscript or PDF
+rendering in the figure.
+<p>In addition, Ipe offers you some editing functions that can usually
+only be found in professional drawing programs or <span class="tex-sc">cad</span>
+systems. For instance, it incorporates a context sensitive snapping
+mechanism, which allows you to draw objects meeting in a point, having
+parallel edges, objects aligned on intersection points of other
+objects, rectilinear and <i>c</i>-oriented objects and the like. Whenever
+one of the snapping modes is enabled, Ipe shows you <span class="tex-emph">Fifi</span>, a
+secondary cursor, which keeps track of the current aligning.
+<p>One of the nicest features of Ipe is the fact that it is
+<span class="tex-emph">extensible</span>. You can write your own functions, so-called
+<span class="tex-emph">ipelets</span>.  Once registered with Ipe by adding them to your
+ipelet path, you can use those functions like Ipe's own editing
+functions. (In fact, some of the functions in the standard Ipe
+distribution are actually implemented as ipelets.)  Ipelets can be
+written in Lua, an easy-to-learn interpreted language that is embedded
+into Ipe, or also in C++.  Among others, there is an ipelet to compute
+Voronoi diagrams.
+<p>Making a presentation is another task that requires drawing figures.
+You can use Ipe to prepare presentations in PDF format.  Ipe offers
+many features to make attractive presentations.
+<p>Ipe tries to be self-explanatory. There is online help available, and
+most commands tell you about options, shortcuts, or errors.
+Nevertheless, it would probably be wise to read at least a few
+sections of this manual.  The chapter on general concepts and the
+chapter explaining the snapping functions would be a useful read. If
+you want to use Ipe to prepare presentations, you should also read the
+<a href="#sec:presentations">chapter on presentations</a>.
+
+<h1 id="id2">2 About Ipe files</h1>
+
+<p>Ipe&nbsp;7 creates (Encapsulated) Postscript or PDF files.  These files can
+be used in any way that PDF or Postscript files are used, such as
+viewed with Ghostview, with Acrobat Reader or Xpdf, edited with
+Acrobat, or included in Latex/Pdflatex documents.  However, Ipe cannot
+read arbitrary Postscript or PDF files, only files it has created
+itself.  This is because files created by Ipe contain a special hidden
+stream that describes the Ipe objects.  (So if you edit your
+Ipe-generated PDF file in a different program such as Adobe Acrobat,
+Ipe will not be able to read the file again afterwards.)
+<p>You decide in what format to store a figure when saving it for the
+first time. Ipe gives you the option of saving with extensions "pdf"
+(PDF), and "ipe" (XML).  Files saved with extension "ipe" are XML
+files and contain no PDF information.  The precise XML format used by
+Ipe is documented <a href="#sec:xml">later in this manual</a>.  XML files can
+be read by any XML-aware parser, and it is easy for other programs to
+generate XML output to be read by Ipe.  You probably don't want to
+keep your figures in XML format, but it is excellent for communicating
+with other programs, and for converting figures between programs.
+<p>There are a few interesting uses for Ipe documents:
+
+<h4 id="id3">Figures for Latex documents.</h4>
+Ipe was originally written to make it easy to make figures for Latex
+documents.  If you are not familiar with including figures in Latex,
+you can find details <a href="#id141">here</a>.  
+
+<h4 id="id4">Presentations.</h4>
+Ipe is not a presentation tool like Powerpoint or Keynote.  An Ipe
+presentation is simply a PDF file that has been created by Ipe, and
+which you present during your talk using any PDF reader (for instance
+Acrobat Reader).
+<p>However, Ipe now comes with a presentation tool IpePresenter to make
+presentations more comfortable.  The <a href="#sec:presentations">chapter on
+  presentations</a> explains Ipe features meant for
+making presentations.
+
+<h4 id="id5">SVG files.</h4>
+Figures in SVG format can be used to include scalable figures in web
+pages.  Ipe does not save in SVG format directly, but the tool
+"iperender" allows you to convert an Ipe document to SVG format.
+This conversion is one-way, although the auxiliary tool
+<span class="tex-emph">svgtoipe</span> also allows you to convert SVG figures to Ipe format.
+
+<h4 id="id6">Bitmaps.</h4>
+Sometimes Ipe can be useful for creating bitmap images.  Again, the
+"iperender" tool can render an Ipe document as a bitmap in PNG
+format. 
+
+<h1 id="id7">3 General Concepts</h1>
+
+<p> 
+After you start up Ipe, you will see a window with a large gray area
+containing a white rectangle.  This area, the <span class="tex-emph">canvas</span>, is the
+drawing area where you will create your figures.  The white rectangle
+is your "sheet of paper", the first page of your document.  (While
+Ipe doesn't stop you from drawing outside the paper, such documents
+generally do not print very well.)
+<p>At the top of the window, above the canvas, you find two toolbars: one
+for snapping modes, grid size and angular resolution; and another one
+to select the current mode.
+<p><span id="id8">
+On</span> the left hand side of the canvas you find an area where you can
+select object properties such as stroke and fill color, pen width,
+path properties, text size, and mark size.  Below it is a list of the
+<span class="tex-emph">layers</span> of the current page.
+<p>All user interface elements have tool tips&mdash;if you move the mouse
+over them and wait a few seconds, a short explanation will appear.
+The mode toolbar allows you to set the current <span class="tex-emph">Ipe mode</span>.
+Roughly speaking, the mode determines what the left mouse button will
+do when you click it in the figure.  The leftmost five buttons select
+modes for selecting and transforming objects, the remaining buttons
+select modes for creating new objects.
+<p>Pressing the right mouse button pops up the object context menu in any
+mode.
+<p>In this chapter we will discuss the general concepts of Ipe.
+Understanding these properly will be essential if you want to get the
+most out of Ipe.
+
+<h2 id="id9">3.1 Order of objects</h2>
+
+<p>
+
+
+
+
+<p>An Ipe drawing is a sequence of geometric objects. The order of the
+objects is important&mdash;wherever two objects overlap, the object which
+comes first in Ipe's sequence will hide the other ones. When new
+objects are created, they are added in <span class="tex-emph">front</span> of all other
+objects. However, you can change the position of an object by putting
+it in front or in the back, using the "Front" and "Back" functions
+in the <span class="tex-emph">Edit</span> menu.
+
+<h2 id="sec:selection">3.2 The current selection</h2>
+
+<p>
+
+Whenever you call an Ipe function, you have to specify which objects
+the function should operate on. This is done by <span class="tex-emph">selecting</span>
+objects.  The selected objects (the <span class="tex-emph">selection</span>) consists of two
+parts: the <span class="tex-emph">primary</span> selection consists of exactly one object (of
+course, this object could be a group). All additional selected objects
+form the <span class="tex-emph">secondary</span> selection. Some functions (like the context
+menu) operate only on the primary selection, while others treat
+primary and secondary selections differently (the align functions, for
+instance, align the secondary selections with respect to the primary
+selection.)
+<p>The selection is shown by outlining the selected object in color. Note
+that the primary selection is shown with a slightly different look.
+<p><span id="id11">
+The</span> primary and secondary selections can be set in selection mode.
+Clicking the left mouse button close to an object makes that object
+the primary selection and deselects all other objects. If you keep the
+<font color="#0000ff">Shift</font> key pressed while clicking with the left mouse key, the
+object closest to the mouse will be added to or deleted from the
+current selection.  You can also drag a rectangle with the
+mouse&mdash;when you release the mouse button, all objects inside the
+rectangle will be selected.  With the <font color="#0000ff">Shift</font> key, the selection
+status of all objects inside the rectangle will be switched.
+<p>To make it easier to select objects that are below or close to other
+objects, it is convenient to understand exactly how selecting objects
+works.  In fact, when you press the mouse button, a list of all
+objects is computed that are sufficiently close to the mouse position
+(the exact distance is set as the <code>select&#95;distance</code> in
+<span class="tex-emph">prefs.lua</span>).  This list is then sorted by increasing distance
+from the mouse and by increasing depth in the drawing.  If <font color="#0000ff">Shift</font>
+was not pressed, the current selection is now cleared. Then the first
+object in the list is presented.  Now, while still keeping the mouse
+button pressed, you can use the <font color="#0000ff">Space</font> key to step through the
+list of objects near the mouse in order of increasing depth and
+distance.  When you release the right mouse button, the object is
+selected (or deselected).
+<p>When measuring the distance from the mouse position to objects, Ipe
+considers the boundary of objects only.  So to select a filled object,
+don't just click somewhere in its interior, but close to its boundary.
+<p><span id="id12">
+
+Another</span> way to select objects is using the <span class="tex-emph">Select all</span> function
+from the <span class="tex-emph">Edit</span> menu. It selects all objects on the page.
+Similarly, the <span class="tex-emph">Select all in layer</span> function in the <span class="tex-emph">Layer</span>
+menu selects all objects in the active layer.
+
+<h2 id="id13">3.3 Moving and scaling objects</h2>
+
+<p>
+
+
+
+
+
+There are four modes for transforming objects: <span class="tex-emph">translate</span>,
+<span class="tex-emph">stretch</span>, <span class="tex-emph">rotate</span>, and <span class="tex-emph">shear</span>.  If you hold the
+shift key while pressing the left mouse button, the stretch function
+keeps the aspect ratio of the objects (an operation we call
+<span class="tex-emph">scaling</span>), and the translate function is restricted to
+horizontal and vertical translations.
+<p>Normally, the transformation functions work on the current selection.
+However, to make it more convenient to move around many different
+objects, there is an exception: When the mouse button is pressed while
+the cursor is not near the current selection, but there <span class="tex-emph">is</span> some
+other object close to the cursor, <span class="tex-emph">that</span> object is moved,
+rotated, scaled, or sheared instead.
+<p>By default, the <span class="tex-emph">rotate</span> function rotates around the center of
+the bounding box for the selected objects.  This behavior can be
+overridden by specifying an
+<a href="#id50">axis system</a>. If an axis system is
+set, then the origin is used as the center.
+<p>The <span class="tex-emph">scale</span>, <span class="tex-emph">stretch</span>, and <span class="tex-emph">shear</span> functions use a
+corner of the bounding box for the selected objects as the fix-point
+of the transformation. Again, if an axis system is set, the origin of
+the system is used instead.  In this case, the <span class="tex-emph">shear</span> function
+will use your <i>x</i>-axis as the fixed axis of the shear operation
+(rather than a horizontal line).
+<p>It is often convenient to rotate or scale around a vertex of an
+object.  This is easy to achieve by setting the origin of the
+axis system to that vertex, using the <span class="tex-emph">Snap to vertex</span>
+function for setting the <a href="#id46">axis
+system</a>.
+
+<h2 id="sec:colors">3.4 Stroke and fill colors</h2>
+
+<p>
+
+
+
+
+
+
+Path objects can have two different colors, one for the boundary and
+one for the interior of the object. The Postscript terms <span class="tex-emph">stroke</span>
+and <span class="tex-emph">fill</span> are used to denote these two colors.  Stroke and fill
+color can be selected independently in the <span class="tex-emph">Properties</span> window.
+Imagine preparing a drawing by hand, using a pen and black ink. What
+Ipe draws in its <span class="tex-emph">stroke</span> color is what you would stroke in black
+ink with your pen. Probably you would not use your pen to fill
+objects, but you would use a brush, and maybe even a different kind of
+paint like water color. Well, the <span class="tex-emph">fill</span> color is Ipe's
+"brush".
+<p>When you create a path object, you'll have to tell Ipe whether you
+want it stroked, filled, or both.  This is set in the <span class="tex-emph">Path
+  properties</span> field.  Clicking near the right end of the field will
+cycle through the three modes "stroked", "stroked &#38; filled", and
+"filled." You can also use the context menu of the path properties
+field.
+<p><span id="id15">
+
+Text</span> objects and arrows only use the stroke color, even for the filled
+arrows. You would also use a pen for these details, not the brush.
+<p>The mark shapes "disk" and "square" also use only the stroke
+color. You can make bicolored marks using the mark shapes "fdisk"
+and "fsquare".
+
+<h2 id="id16">3.5 Pen, dash style, arrows, and tiling patterns</h2>
+
+<p>
+
+
+
+
+
+
+
+The <span class="tex-emph">path properties</span> field is used to set all properties of path
+objects except for the pen width, which is set using the selector just
+above the path properties field.  The dash-dot pattern (solid line,
+dashed, dotted etc.)  effect for the boundaries of <span class="tex-emph">path
+  objects</span>, such as polygons and polygonal lines, splines, circles and
+ellipses, rectangles and circular arcs. It does not effect text or
+marks.
+<p>Line width is given in Postscript points (1/72 inch). A good value is
+something around 0.4 or 0.6.<sup><a href="onepage_2.html#id1">1</a></sup>
+<p>By clicking near the ends of the segment shown in the path properties
+field, you can toggle the front and rear arrows. Only polygonal lines,
+splines, and circular arcs can have arrows.
+<p>If you draw a single line segment with arrows and set it to "filled
+only", then the arrows will be drawn using the fill color (instead of
+the stroke color), and the segment is not drawn at all.  This is
+sometimes useful to place arrows that do not appear at the end of a
+curve.
+<p>Various shapes and sizes of arrows are available through the context
+menu in the path properties field.  You can add other shapes and sizes
+using a stylesheet.
+<p>The arrow shapes <span class="tex-emph">arc</span> and <span class="tex-emph">farc</span> are special.  When the
+final segment of a path object is a circular arc, then these arcs take
+on a curved shape that depends on the radius of the arc.  They are
+designed to look right even for arcs with rather small radius.
+<p><span id="id17">
+A</span> tiling pattern allows you to hatch a path object instead of filling
+it with a solid color.  Only path objects can be filled with a tiling
+pattern.  The pattern defines the slope, thickness, and density of the
+hatching lines, their color is taken from the object's fill color.
+You can select a tiling pattern using the context menu in the path
+properties field.  You can define your own tiling patterns in the
+documents stylesheet.
+
+<h2 id="sec:transparency">3.6 Transparency</h2>
+
+<p>Ipe supports a simple model of transparency.  You can set the opacity
+of path objects and text objects: an opacity of <i>1.0</i> means a fully
+opaque object, while <i>0.5</i> would mean that the object is
+half-transparent.  All opacity values you wish to use in a document
+must be defined in its stylesheet.
+
+<h2 id="id19">3.7 Symbolic and absolute attributes</h2>
+
+
+
+
+<p>Attributes such as color, line width, pen, mark size, or text
+size, can be either absolute (a number, or a set of numbers specifying
+a color) or symbolic (a name).  Symbolic attributes must be translated
+to absolute values by a <a href="#sec:stylesheets"><span class="tex-emph">stylesheet</span></a>
+for rendering.
+<p>One purpose of stylesheets is to be able to reuse figures from
+articles in presentations.  Obviously, the figure has to use much
+larger fonts, markers, arrows, and fatter lines in the presentation.
+If the original figure used symbolic attributes, this can be achieved
+by simply swapping the stylesheet for another one.
+<p>The Ipe user interface is tuned for using symbolic attribute values.
+You can use absolute colors, pen width, text size, and mark size by
+clicking the button to the left of the selector for the symbolic
+names. 
+<p>When creating an object, it takes its attributes from the current user
+interface settings, so if you have selected an absolute value, it will
+get an absolute attribute.  Absolute attributes have the advantage
+that you are free to choose any value you wish, including picking
+arbitrary colors using a color chooser.  In symbolic mode, you can
+only use the choices provided by the current
+<a href="#sec:stylesheets"><span class="tex-emph">stylesheet</span></a>.
+<p>The choices for symbolic attributes provided in the Ipe user interface
+are taken from your stylesheet.  
+
+<h2 id="id20">3.8 Zoom and pan</h2>
+
+<p>
+
+
+You can zoom in and out the current drawing using a mouse wheel or the
+zoom functions.  The minimum and maximum resolution can be
+customized.  Ipe displays the current resolution at the bottom right
+(behind the mouse coordinates).
+<p>Related are the functions <span class="tex-emph">Normal size</span> (which sets the
+resolution to 72&nbsp;pixels per inch), <span class="tex-emph">Fit page</span> (which chooses the
+resolution so that the current page fills the canvas), <span class="tex-emph">Fit
+objects</span> (which chooses the resolution such that the objects on the
+page fill the screen), and <span class="tex-emph">Fit selection</span> (which does the same
+for the selected objects only).  All of these are in the <span class="tex-emph">Zoom</span>
+menu.
+<p>You can <span class="tex-emph">pan</span> the drawing either with the mouse in <span class="tex-emph">Pan</span>
+mode, or by pressing the "x" key ("here") with the mouse anywhere
+on the canvas.  The drawing is then panned such that the cursor
+position is moved to the center of the canvas. This shortcut has the
+advantage that it also works while you are in the middle of any
+drawing operation. Since the same holds for the <span class="tex-emph">zoom in</span> and
+<span class="tex-emph">zoom out</span> buttons and keys, you can home in on any feature of
+your drawing <span class="tex-emph">while</span> you are adding or editing another object.
+
+<h2 id="sec:groups">3.9 Groups</h2>
+
+<p>
+It is often convenient to treat a collection of objects as a single
+object.  This can be achieved by <span class="tex-emph">grouping</span> objects. The result
+is a geometric object, which can be moved, scaled, rotated etc. as a
+whole.  To edit its parts or to move parts of it with respect to
+others, however, you have to <span class="tex-emph">un-group</span> the object, which
+decomposes it into its component objects. To un-group a group object,
+select it, bring up the object menu, and select the <span class="tex-emph">Ungroup</span>
+function.
+<p>Group objects can be elements of other groups, so you can create a
+hierarchy of objects.
+<p>A second function of groups is that they allow you to add additional
+information to an object or group of objects.  In particular, group
+objects allow you to set a <span class="tex-emph">clipping path</span> on part of your
+drawing,  to <span class="tex-emph">create links</span> to external documents or websites,
+and to <span class="tex-emph">decorate</span> objects.  See <a href="#id31">group
+  objects</a> for details.
+
+<h2 id="sec:layers">3.10 Layers</h2>
+
+<p>A page of an Ipe document consists of one or more layers.  Each object
+on the page belongs to a layer.  There is no relationship between
+layers and the <a href="#id9">back-to-front ordering</a> of
+objects, so the layer is really just an attribute of the object.
+<p>The layers of the current page are displayed in the layer list, at the
+bottom left of the Ipe window.  The checkmark to the left of the layer
+name determines whether the layer is visible.  The layer marked with a
+yellow background is the <span class="tex-emph">active</span> layer. New
+objects are always created in the active layer. You can change the
+active layer by left-clicking on the layer name (on Windows,
+double-click on the layer name).
+<p>By right-clicking on a layer name, you open the layer context menu
+that allows you to change layer attributes, to rename layers, to
+delete empty layers, and to change the ordering of layers in the layer
+list (this ordering has no other significance).
+<p>A layer may be editable or locked.  Objects can be selected and
+modified only if their layer is editable. Locked layer are displayed
+in the layer list with a pink background.  You can lock and unlock
+layers from the layer context menu, but note that the active layer
+cannot be locked.
+<p>A layer may have snapping on or off&mdash;objects will behave magnetically
+only if their layer has snapping on.  Layers without snapping are
+displayed dimmed in the layer list.
+<p>Layers are also used to create pages that are displayed incrementally
+in Acrobat Reader.  Once you have distributed your objects over
+various layers, you can create <a href="#sec:views"><span class="tex-emph">views</span></a>, which
+defines in what order which layers of the page are shown.
+
+<h2 id="id23">3.11 Mouse shortcuts</h2>
+
+<p>
+
+
+
+
+
+For the beginner, choosing a selection or transformation mode and
+working with the left mouse button is easiest. Frequent Ipe users
+don't mind to remember the following shortcuts, as they allow you to
+perform selections and transformations without leaving the
+current mode:
+<div class="tex-center"><p>
+<table border><tbody><tr><td colspan="1" align="left">
+
+</td><td colspan="1" align="left"> Left Mouse      </td><td colspan="1" align="left"> Right mouse      </td></tr>
+<tr><td colspan="1" align="left">
+Plain       </td><td colspan="1" align="left"> (*)             </td><td colspan="1" align="left"> context menu     </td></tr>
+<tr><td colspan="1" align="left">
+Shift       </td><td colspan="1" align="left"> (*)             </td><td colspan="1" align="left"> pan              </td></tr>
+<tr><td colspan="1" align="left">
+Ctrl        </td><td colspan="1" align="left"> select          </td><td colspan="1" align="left"> stretch          </td></tr>
+<tr><td colspan="1" align="left">
+Ctrl+Shift  </td><td colspan="1" align="left"> select non-destructively </td><td colspan="1" align="left"> scale   </td></tr>
+<tr><td colspan="1" align="left">
+Alt         </td><td colspan="1" align="left"> translate       </td><td colspan="1" align="left"> rotate               </td></tr>
+<tr><td colspan="1" align="left">
+Alt+Shift   </td><td colspan="1" align="left"> translate horizontal/vertical </td><td colspan="1" align="left"> rotate 
+</td></tr></tbody></table>
+
+</p></div>
+The fields marked (*) depend on the current mode.  
+<p>The middle mouse button always pans the canvas.  The right mouse
+button brings up the object context menu.
+<p>If you have to use Ipe with a two-button mouse, where you would
+normally use the middle mouse button (for instance, to move a vertex
+when editing a path object), you can hold the Shift-key and use the
+right mouse button.
+<p>If you are not happy with these shortcuts, they <a href="#sec:customize">can be changed
+  easily</a>.
+
+<h1 id="id24">4 Object types</h1>
+
+<p>
+
+Ipe supports five different types of objects that can be placed on a
+page, namely path objects (which includes all objects with a stroked
+contour and filled interior, such as (poly)lines, polygons, splines,
+splinegons, circles and ellipses, circular and elliptic arcs, and
+rectangles), text objects, image objects, group objects, and reference
+objects (which means that a symbol is used at a certain spot on the
+page).
+<p>Path and text objects are created by clicking the left mouse button
+somewhere on the canvas using the correct Ipe mode.  Group objects are
+created using the <span class="tex-emph">Group</span> function in the <span class="tex-emph">Edit</span> menu.
+Image objects are added to the document using <span class="tex-emph">Insert image</span> in
+the <span class="tex-emph">File</span> menu. Reference objects can be created either using
+mark mode, or using the <span class="tex-emph">Symbols</span> ipelet.
+
+<h2 id="id25">4.1 Path objects</h2>
+
+
+Path objects are defined by a set of <span class="tex-emph">subpaths</span>, that is, curves
+in the plane.  Each subpath is either open or closed, and consists of
+straight line segments, circular or elliptic arc segments, parabola
+segments (or, equivalently, quadratic B&eacute;zier splines), cubic B&eacute;zier splines, and cubic B-spline segments.  The curves are drawn with the
+stroke color, dash style, and line width; the interior of the object
+specified is filled using the fill color.
+<p>The distinction between open and closed subpaths is meaningful for
+stroking only, for filling any open subpath is implicitely closed.
+Stroking a set of subpaths is identical to stroking them individually.
+This is not true for filling: using several subpaths, one can
+construct objects with holes, and more complicated pattern.  The
+filling algorithm is normally the <span class="tex-emph">even-odd rule</span> of
+Postscript/PDF: To determine whether a point lies inside the filled
+shape, draw a ray from that point in any direction, and count the
+number of path segments that cross the ray.  If this number is odd,
+the point is inside; if even, the point is outside.
+<p>Ipe can draw arrows on the first and last segment of a path object,
+but only if that segment is part of an open subpath.
+<p>There are several Ipe modes that create path objects in different
+ways.  All modes create an object consisting of a single subpath only.
+To make more complicated path objects, such as objects with holes, you
+create each boundary component separately, then select them all and
+use the <span class="tex-emph">Compose paths</span> function in the <span class="tex-emph">Edit</span> menu.  The
+reverse operation is <span class="tex-emph">Decompose path</span>, you find it in the context
+menu of a path object that has several subpaths.
+<p>You can also create complicated paths by joining curves sequentially.
+For this to work, the endpoint of one path must be (nearly) identical
+to the begin point of the next&mdash;easy to achieve using snapping.  You
+select the path objects you wish to join, and call <span class="tex-emph">Join paths</span>
+in the <span class="tex-emph">Edit</span> menu.  You can also join several open path objects
+into a single closed path this way.
+<p><span id="id26">  
+Circles</span> can be entered in three different ways.  To create an ellipse,
+create a circle and shear or stretch and rotate it.  Circular arcs can
+be entered by clicking three points on the arc or by clicking the
+center of the supporting circle as well as the begin and end vertex of
+the arc. They can be filled in Postscript fashion, and can have
+arrows. You can stretch a circular arc to create an elliptic arc.
+<p>A common application for arcs is to mark angles in drawings. The snap
+keys are useful to create such arcs: set arc creation to <span class="tex-emph">center
+&#38; 2 pts</span>, select <span class="tex-emph">snap to vertex</span> and <span class="tex-emph">snap to boundary</span>,
+click first on the center point of the angle (which is magnetic) and
+click then on the two bounding lines.
+<p><span id="id27">
+
+
+
+
+
+
+
+There</span> are two modes for creating more complex general path objects.
+The difference between <span class="tex-emph">line</span> mode and <span class="tex-emph">polygon</span> mode is
+that the first creates an open path, the latter generates a closed
+one.  As a consequence, the <span class="tex-emph">line</span> mode uses the current arrow
+settings, while the <span class="tex-emph">polygon</span> mode doesn't.
+The path object created using line or polygon mode consists of
+segments of various types.  The initial setting is to create straight
+segments. By holding the shift-key when pressing the left mouse button
+one can switch to uniform B-splines. One can also add quadratic
+B&eacute;zier spline segments, cubic B&eacute;zier spline segments, and circular
+arc segments as follows:
+<p>To add a quadratic B&eacute;zier spline (that is, a parabola), click twice
+in polyline mode for the first two control points.  Then press the
+<font color="#0000ff">q</font> key and click on the third (last) control point.
+<p>Similarly, to add a cubic B&eacute;zier spline, click three times in
+polyline mode on the first three control points.  Press the <font color="#0000ff">c</font>
+key, and click on the last control point.
+<p>Circular arcs can be added as follows: Click twice in polyline mode,
+once on the starting point of the arc, then on a point in the correct
+tangent direction.  Press the <font color="#0000ff">a</font> key, and click on the endpoint
+of the arc.
+<p>To make curves where segments of different type are joined with
+identical tangents, you can press the <font color="#0000ff">y</font> key whenever you are
+starting a new segment: this will set the coordinate system centered
+at the starting point of the segment, and aligned with the tangent to
+the previous segment. 
+<p>For the mathematically inclined, a more precise description of the
+segments that can appear on a subpath follows.  More details can be
+found in Foley et al.<sup><a href="onepage_2.html#id2">2</a></sup> and other text books on splines.
+<p>A subpath consists of a sequence of segments.  Each segment is either
+a straight line segment, an elliptic arc, a quadratic B&eacute;zier spline,
+a cubic B&eacute;zier spline, or a uniform cubic B-spline. 
+<p>The quadratic B&eacute;zier spline defined by control points <i>p<sub>0</sub></i>,
+<i>p<sub>1</sub></i>, and <i>p<sub>2</sub></i>, is the curve
+<div class="tex-math"><i>
+P(t) = (1-t)<sup>2</sup> p<sub>0</sub> + 2t(1-t) p<sub>1</sub> + t<sup>2</sup> p<sub>2</sub>,
+</i></div>
+where&nbsp;<i>t</i> ranges from <i>0</i> to <i>1</i>. This implies that it starts in
+<i>p<sub>0</sub></i> tangent to the line <i>p<sub>0</sub>p<sub>1</sub></i>, ends in <i>p<sub>2</sub></i> tangent to
+the line <i>p<sub>1</sub>p<sub>2</sub></i>, and is contained in the convex hull of the
+three points.  Any segment of any parabola can be expressed as a
+quadratic B&eacute;zier spline.
+<p>For instance, the piece of the unit parabola <i>y = x<sup>2</sup></i> between <i>x=a</i>
+and <i>x=b</i> can be created with the control points
+<blockquote><table border><tbody><tr><td colspan="1" align="left">
+<i>
+p<sub>0</sub> </td><td colspan="1" align="center"> = </td><td colspan="1" align="left"> (a, a<sup>2</sup>)</td></tr>
+<tr><td colspan="1" align="left">
+p<sub>1</sub> </td><td colspan="1" align="center"> = </td><td colspan="1" align="left"> ( (a + b)/(2), ab) </td></tr>
+<tr><td colspan="1" align="left">
+p<sub>2</sub> </td><td colspan="1" align="center"> = </td><td colspan="1" align="left"> (b, b<sup>2</sup>)
+</i></td></tr></tbody></table>
+</blockquote>
+Any piece of any parabola can be created by applying some affine
+transformation to these points.
+<p>The cubic B&eacute;zier spline with control points <i>p<sub>0</sub></i>, <i>p<sub>1</sub></i>,
+ <i>p<sub>2</sub></i>, and <i>p<sub>3</sub></i> is the curve
+<div class="tex-math"><i>
+R(t) = (1-t)<sup>3</sup>p<sub>0</sub> + 3t(1-t)<sup>2</sup> p<sub>1</sub> + 
+3 t<sup>2</sup>(1-t) p<sub>2</sub> + t<sup>3</sup> p<sub>3</sub>.
+</i></div>
+It starts in <i>p<sub>0</sub></i> being tangent to the line <i>p<sub>0</sub>p<sub>1</sub></i>, ends in
+<i>p<sub>3</sub></i> being tangent to the line <i>p<sub>2</sub>p<sub>3</sub></i>, and lies in the convex
+hull of the four control points.
+<p>Uniform cubic B-splines approximate a series of <i>m+1</i> control points
+<i>p<sub>0</sub></i>, <i>p<sub>1</sub></i>, &hellip;, <i>p<sub>m</sub></i>, <i>m  &ge; 3</i>, with a curve consisting
+of <i>m-2</i> cubic polynomial curve segments <i>s<sub>0</sub></i>, <i>s<sub>1</sub></i>, &hellip;,
+<i>s<sub>m-3</sub></i>. Every such curve segment is defined by four of the control
+points. In fact, curve segment <i>s<sub>i</sub></i> is defined by the points
+<i>p<sub>i</sub></i>, <i>p<sub>i+1</sub></i>, <i>p<sub>i+2</sub></i>, and <i>p<sub>i+3</sub></i>. If the curve is closed
+(a <span class="tex-emph">splinegon</span>), it contains three additional curve segments
+<i>s<sub>m-2</sub></i>, <i>s<sub>m-1</sub></i>, and <i>s<sub>m</sub></i>, defined by appending <i>p<sub>0</sub></i>,
+<i>p<sub>1</sub></i>, and <i>p<sub>2</sub></i> to the end of the sequence.  A uniform B-spline
+segment on an open subpath of an Ipe path object is defined by
+repeating both the first and last control point three times, so as to
+make the segment begin and end in these points.
+<p>The segment <i>s<sub>i</sub></i> is the cubic curve segment with the following
+parametrization.
+<div class="tex-math"><i>
+Q(t) = ((1-t)<sup>3</sup>)/(6) p<sub>i</sub> + (3t<sup>3</sup> -6t<sup>2</sup> + 4)/(6) p<sub>i+1</sub>
++ (-3t<sup>3</sup> + 3t<sup>2</sup> + 3t +1)/(6) p<sub>i+2</sub> + (t<sup>3</sup>)/(6)
+p<sub>i+3</sub>,
+</i></div>
+where <i>t</i> ranges from <i>0</i> to <i>1</i>.
+<p>Since the point <i>Q(t)</i> is a convex combination of the four control
+points, the curve segment <i>s<sub>i</sub></i> lies in the convex hull of <i>p<sub>i</sub></i> to
+<i>p<sub>i+3</sub></i>. Furthermore, it follows that any affine transformation can be
+applied to the curve by applying it to the control points.
+Note that a control point <i>p<sub>i</sub></i> has influence on only four curve
+segments, <i>s<sub>i-3</sub></i>, <i>s<sub>i-2</sub></i>, <i>s<sub>i-1</sub></i>, and <i>s<sub>i</sub></i>. Thus, when you
+edit a spline object and move a control point, only a short piece of the
+spline in the neighborhood of the control point will move.
+
+
+<h2 id="id28">4.2 Text objects</h2>
+
+<p>
+
+
+ 
+Text objects come in two flavors: simple <span class="tex-emph">labels</span>, and
+<span class="tex-emph">minipages</span>.  There are two variants of these: <span class="tex-emph">titles</span> (a
+label that serves as the title of the page), and <span class="tex-emph">textbox</span> (a
+minipage that spans the entire width of the page).
+<p>The position you have to click to start creating a <span class="tex-emph">label</span> object
+is normally the leftmost baseline point (but this can be changed by
+changing the object's horizontal and vertical alignment).  A popup
+window appears where you can enter Latex source code.
+<p>A <span class="tex-emph">minipage</span> object is different from a simple text object in
+that its width is part of its definition. When you create a minipage
+object, you first have to drag out a horizontal segment for the
+minipage.  This is used as the top edge of the minipage&mdash;it will
+extend downwards as far as necessary to accomodate all the text.
+Minipages are formatted using, not surprisingly, Latex's
+<code>minipage</code> environment.  Latex tries to fill the given bounding
+box as nicely as possible. It is possible to include center
+environments, lemmas, and much more in minipages.
+<p>To create a <span class="tex-emph">textbox</span> object, simply press <font color="#0000ff">F10</font>.  Ipe
+automatically places the object so that it spans the entire width of
+the page (the <span class="tex-emph">layout</span> settings in the stylesheet determine how
+much space is left on the sides), and places it vertically underneath
+the textboxes already on the page.  This is particularly convenient
+for creating presentations with a lot of text, or with items that
+appear <a href="#sec:views">one by one</a>.
+<p><span class="tex-emph">Title</span> objects are managed by Ipe automatically.  They are
+special labels that are created using <span class="tex-emph">Edit title &#38; sections</span> in
+the <span class="tex-emph">Page</span> menu.  Their color, size, alignment, and position on
+the page is determined by the stylesheet.
+<p>You can use any LaTeX-command that is legal inside a
+<code>\makebox</code> (for labels) or inside a <code>minipage</code> (for
+minipages).  You cannot use commands that involve a non-linear
+translation into PDF, such as commands to generate hyperlinks or to
+include external images.
+<p>You can use color in your text objects, using the <code>\textcolor</code>
+command, like this:
+<pre class="tex-verbatim">
+This is in black. \textcolor{red}{This is in red.} This is in black.
+</pre>
+All the symbolic colors of your current stylesheet are also available
+as arguments to <code>\textcolor</code>.  You can also use absolute colors,
+for instance:
+<pre class="tex-verbatim">
+This is in black. \textcolor[rgb]{1,1,0}{This is in yellow.} This is in black.
+</pre>
+<p><span id="id29">
+
+If</span> you need LaTeX-commands that are defined in additional LaTeX
+packages, you can include (<code>\usepackage</code>) those in the LaTeX
+preamble, which can be set in <span class="tex-emph">Document properties</span> in the
+<span class="tex-emph">Edit</span> menu.
+<p>Note that the |xcolor|-package is loaded automatically by Ipe, without
+any options.  If you need to use package options of the
+|xcolor|-package, place the command
+<pre class="tex-verbatim">
+\ipedefinecolors{options}
+</pre>
+in your preamble. It has to go before the first use of |xcolor|
+commands in your document.
+<p>After you have created or edited a text object, the Ipe screen display
+will show the beginning of the Latex source.  You can select <span class="tex-emph">Run
+  Latex</span> from the <span class="tex-emph">File</span> menu to create the PDF/Postscript
+representation of the object.  This converts all the text objects in
+your document at once, and Ipe will display a correct rendition of the
+text afterwards.
+<p>If the Latex conversion process results in errors, Ipe will
+automatically show you the log file created by the Latex run.  If you
+cannot figure out the problem, look in <a href="#sec:troubleshooting">the section on
+  troubleshooting</a>.
+<p>You can use Unicode text, such as accented characters, Greek,
+Cyrillic, Chinese, Japanese, or Korean, in your text objects, once
+<a href="#id76">you have set up the necessary style files and
+  fonts</a>.
+<p>When Ipe computes the bounding box for a piece of text, it relies
+entirely on the dimensions that Latex provides.  Sometimes glyphs are
+larger than their "official" dimensions, and as a result this
+bounding box is too tight.  In the following figure, "A" and "G"
+stick out of the golden rectangle (the bounding box computed by Ipe
+based on the Latex dimensions) at the top, "y" sticks out at the
+bottom:
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="fontbbox.svg"
+      name="fontbbox"></object>
+</p></div>
+When you experience that text in your figures is clipped, you may have
+to enlarge the figure's bounding box using a "BBOX" layer.
+<p>The opposite problem can occur when you use transformed text.  Ipe
+computes the bounding box for the transformed text by transforming the
+bounding box for the original text, and the result can be too large:
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="fontbbox2.svg"
+      name="fontbbox2"></object>
+</p></div>
+If this is a problem, you can put the text object inside a group and
+set a clipping path for the group.
+
+<h2 id="sec:images">4.3 Image objects</h2>
+
+
+Images are inserted using <span class="tex-emph">Insert image</span> (in the <span class="tex-emph">File</span>
+menu).  Once in a drawing, you can scale, stretch, shear, and rotate
+an image.  You can read in some scanned drawing and draw on top of it
+within Ipe. This is useful if you have a drawing on paper and want to
+make an Ipe version of it.
+<p><span class="tex-emph">Insert image</span> can handle images in JPEG and PNG format (and
+possibly others such as GIF, BMP, TIFF, depending on the operating
+system).  JPEG images are stored as is (PDF supports the JPEG
+standard), all other images are stored as a (compressed) bitmap, with
+full-color resolution (24&nbsp;bits per pixel).
+<p>It is also possible to simply paste an image into Ipe (this should not
+be used for JPEG images, as you would then store the bitmap without
+JPEG compression).
+<p>Images are stored efficiently in PDF format.  It is reasonable to
+create PDF presentations with lots of JPEG photographs in Ipe.  
+
+<h2 id="id31">4.4 Group objects</h2>
+
+<p>Group objects are created by selecting any number of objects and using
+the <span class="tex-emph">Group</span> function from the <span class="tex-emph">Edit</span> menu.  The grouped
+objects then behave like a single object.  To modify a group object,
+it has to be decomposed into its parts using <span class="tex-emph">Ungroup</span>.
+
+<h4 id="id32">Clipping</h4>
+<p>You can set a <span class="tex-emph">clipping path</span> for a group.  The group will then
+be clipped to this path&mdash;nothing will be drawn outside the clipping
+path.  This is useful, for instance, to clip out an interesting part
+of an existing drawing or bitmap.
+<p>To add a clipping path, select a group as the primary selection, and a
+path object as the secondary selection.  Then select <span class="tex-emph">Add
+  clipping path</span> from the group's context menu.
+
+<h4 id="id33">Decorations</h4>
+<p>Group objects can be <span class="tex-emph">decorated</span>.  A decoration consists of one
+or more path objects that are drawn around the group.  The decoration
+is automatically resized to fit the bounding box of the group.
+<p>To use decorations, you first need to add a
+<a href="#sec:stylesheets">stylesheet</a> to your document that defines
+decoration symbols&mdash;you may want to start with the provided style
+sheet <span class="tex-emph">decorations.isy</span>.  Then use the group's object menu to
+choose a decoration for the group.
+
+<h4 id="id34">Editing text in group</h4>
+<p>Groups often contain some text.  For instance, a graph vertex is
+nicely represented as a group consisting of a text label and either a
+mark symbol such as a disk, or a path object (a circle, rectangle, or
+a more complicated shape).  When drawing a graph, one can place the
+vertices by copying and pasting these vertex objects, but then one
+needs to set the text label in each vertex. 
+<p>To make this easy, the <span class="tex-emph">Edit object</span> operation (which is
+otherwise used to edit the text in text objects and the shape of path
+objects) can also be used for group objects that contain at lease one
+text object.  It allows you to update the text inside the
+<span class="tex-emph">top-most</span> text object of the group.
+
+<h4 id="id35">Recursive group edit</h4>
+<p>Often you want to modify the contents of a group without disturbing
+the rest of your drawing.  To make this easy, Ipe provides the
+<span class="tex-emph">Edit group</span> operation, available either from the <span class="tex-emph">Edit</span>
+menu or from the group's context menu.
+<p>Group editing is implemented by un-grouping the group into a newly
+created layer whose name will start with <span class="tex-emph">EDIT-GROUP</span>.  Ipe locks
+all other layers, so that you can concentrate on editing the objects
+in the group.  When you are done, you select <span class="tex-emph">End group edit</span>
+from the <span class="tex-emph">Edit</span> menu.  Ipe will take all the objects in the group
+edit layer, group them together, and place the group back in its
+original layer.
+<p>You can edit groups recursively: If your group contains another group
+that you want to modify, you can perform another group edit operation.
+Each <span class="tex-emph">End group edit</span> closes one group edit layer, until you
+return to your normal drawing workflow.
+<p>Group edit is not a special mode&mdash;all the state needed by Ipe to
+manage editing the group is stored inside the drawing.  This means
+that you can save your drawing during a group edit (also, auto-saving
+works during a group edit).  If you have a document with multiple
+pages, you can also start group edits on several pages in parallel,
+for instance to copy and paste objects between groups.
+<p>It is legal to unlock the other layers of the page so that you can
+move objects into and out of the group.  You should, however, be
+careful with changing anything about the layers of the page&mdash;do not
+re-order or rename the layers.  If you need new layers, create them at
+the end of the layer list. 
+<p>When you perform the <span class="tex-emph">End group edit</span> operation, the group edit
+layer must be the active layer.  If you changed the active layer, you
+will have to change it back to be able to return from the group edit. 
+<p>Note that group edit does not currently preserve a clipping path or a link
+destination set on the group.  It does preserve the group's decoration.
+
+<h4 id="id36">Links to websites, videos, and other pages</h4>
+<p>Group objects allow you to create <span class="tex-emph">active links</span>: when the PDF
+document is viewed in a PDF viewer, one can click inside the bounding
+box of the group to cause some action.   
+<p>You add a link to a group by bringing up the object menu, and using
+<span class="tex-emph">Set link URL</span>.  Note that only top-level group objects on a page
+(that is, a group object that is not inside another group) are turned
+into active links.
+<p>Ipe supports several types of link actions:
+
+<h5 id="id37">Websites</h5>
+<p>If you provide a URL such as <span class="tex-emph">http://ipe.otfried.org</span> as a link
+action, then clicking on the link will open the webpage in a web
+browers.
+
+<h5 id="id38">Launching media</h5>
+<p>If the link action starts with <span class="tex-emph">launch:</span>, then the action starts
+a program to view the given file.  For instance, the link action
+<span class="tex-emph">launch:apollo17.avi</span> would start a video player playing the file
+<span class="tex-emph">apollo17.avi</span> in the directory that also contains the PDF file.
+<p>The PDF presentations apps
+<a href="http://iihm.imag.fr/blanch/software/osx-presentation/">Pr&eacute;sentation</a>
+and <a href="https://pdfpc.github.io/">pdfpc</a> understand these links,
+and play the video inside the presentation app.  Pdfpc will even embed
+the video into the current slide, using the bounding box of the group
+object to place the video.
+<p>Pdfpc allows you to provide a few more parameters: for instance, the
+link action
+<pre class="tex-verbatim">
+launch:apollo17.avi?autostart&amp;loop&amp;start=5&amp;stop=12
+</pre>
+will start the movie as soon as the slide is viewed, plays the movie
+in a loop, starting at 5&nbsp;seconds and ending at 12&nbsp;seconds into the
+movie.
+<p>You can also launch other types of documents.  For instance, clicking
+on a group object with link action <span class="tex-emph">launch:summary.txt</span> will open
+the text file&nbsp;<span class="tex-emph">summary.txt</span> in a text editor.
+
+<h5 id="id39">Navigating inside the document</h5>
+<p>If the link action starts with <span class="tex-emph">goto:</span>, then clicking on the
+group object will navigate to another page of the same PDF document.
+You identify pages using their <span class="tex-emph">section name</span>.  So if you have a
+page with section name <span class="tex-emph">chapter3</span> in your document, then the link
+action <span class="tex-emph">goto:chapter3</span> will jump to that page.
+
+<h5 id="id40">Standard actions</h5>
+<p>PDF currently defines four standard actions: <span class="tex-emph">NextPage</span>,
+<span class="tex-emph">PrevPage</span>, <span class="tex-emph">FirstPage</span>, and <span class="tex-emph">LastPage</span>.  You use these
+by prefixing them with <span class="tex-emph">named:</span>.  For example, the link action
+<span class="tex-emph">named:PrevPage</span> creates an action to go to the previous page.
+This can be used, for instance, to place buttons in a background layer
+that appears on every page of a document.
+
+<h2 id="id41">4.5 Reference objects and symbols</h2>
+
+<p>A symbol is a single Ipe object (which can of course be a group) that
+is defined in a document's stylesheet.  A reference object is a
+reference to a symbol, placed at a given position on the page.
+<p>Symbols can be parameterized with stroke and fill color, pen width,
+and symbol size.  Whether or not a symbol accepts which parameter is
+visible from the symbol's name: if it takes any parameter, the name
+must end in a pair of parentheses containing some of the letters
+"s", "f", "p", "x" (in this order), for the parameters stroke,
+fill, pen, and size.  References to parameterized symbols allow all
+the attributes that the symbol accepts.
+<p>All references can be translated around the page. Whether or not the
+symbol can be rotated or stretched depends on the definition of the
+symbol in the stylesheet.
+<p>If a symbol named "Background" exists in your stylesheet, it is
+automatically displayed on each page, at the very back.  To suppress
+the automatic display, create a layer named "BACKGROUND" on the
+page. (If such a layer is present, it suppresses the "Background"
+symbol.  It does not matter if the layer itself is visible or not.)
+<p><span id="id42"> 
+Marks</span> are symbols with special support from the Ipe user interface.
+They are used to mark points in the drawing, and come in several
+different looks (little circles, discs, squares, boxes, or crosses).
+You can define your own mark shapes by defining appropriate symbols in
+your stylesheet.
+<p>Note that marks behave quite different from path objects. In
+particular, you should not confuse a disc mark with a little disc
+created as a circle object:
+<ul class="tex-itemize"><li>a solid mark (type <span class="tex-emph">disk</span> and <span class="tex-emph">square</span>) only obeys the
+  stroke color (but <span class="tex-emph">fdisk</span> and <span class="tex-emph">fsquare</span> marks are filled
+  with the fill color)
+<li>when you scale a mark, it will not change its size (you can change
+  the mark size from the properties panel, though)
+<li>when you rotate a mark, it does not change its orientation
+</ul>
+You can change a mark's shape and size later.
+
+<h1 id="sec:snapping">5 Snapping</h1>
+
+
+
+
+
+One of the nice features of Ipe is the possibility of having the mouse
+<span class="tex-emph">snap</span> to other objects during entry or moving. Certain features on
+the canvas become "magnetic", and it is very easy to align objects to
+each other, to place new objects properly with respect to the present
+objects and so on.
+<p>Snapping comes in three flavors: <span class="tex-emph">grid snapping</span>, <span class="tex-emph">context
+snapping</span>, and <span class="tex-emph">angular snapping</span>.
+<p>In general, you turn a snapping mode on by pressing one of the buttons
+in the <span class="tex-emph">Snap</span> toolbar, or selecting the equivalent functions in
+the Snap menu. The buttons are independent, you can turn them on and
+off independently. (The snapping modes, however, are not
+independent. See below for the precise interaction.)  The keyboard
+shortcuts are rather convenient since you will want to toggle snapping
+modes on and off while in the middle of creating or editing some
+object.
+<p><span id="id44">
+
+Whenever</span> one of the snapping modes is enabled, you will see a little
+cross near the cursor position. This is the secondary cursor
+<span class="tex-emph">Fifi</span>.<sup><a href="onepage_2.html#id3">3</a></sup> Fifi marks the position the
+mouse is snapped to.  
+
+<h2 id="id45">5.1 Grid snapping</h2>
+
+
+
+
+
+<span class="tex-emph">Grid snapping</span> is easy to explain. It simply means that the mouse
+position is rounded to the nearest grid point. Grid points are points
+whose coordinates are integer multiples of the <span class="tex-emph">grid size</span>, which can be
+set in the box in the <span class="tex-emph">Snap</span> field. You have a choice from a set of
+possible grid sizes. The units are Postscript points (in LaTeX called
+<code>bp</code>), which are equal to 1/72 of an inch. 
+<p>You can ask Ipe to show the grid points by selecting the function
+<span class="tex-emph">Grid visible</span> from the <span class="tex-emph">View</span> menu. The same function turns
+it off again.
+
+<h2 id="id46">5.2 Context snapping</h2>
+
+
+When <span class="tex-emph">context snapping</span> is enabled, certain features of the
+objects of your current drawing become magnetic. There are three
+buttons to enable three different features of your objects: vertices,
+the boundary, and intersection points.
+<p>When the mouse is too far away from the nearest interesting feature,
+the mouse position will not be "snapped".  The snapping distance can
+be changed by setting <span class="tex-emph">Snapping distance</span> value in the preference
+dialog.  If you use a high setting, you will need to toggle snapping
+on and off during drawing. Some people prefer to set snapping on once
+and for all, and to set the snap distance to a very small value like 3
+or 4.
+<p>The features that you can make "magnetic" are the following:
+<dl class="tex-description"><p><span id="id47">&nbsp;</span>
+
+<dt><span class="tex-bf">vertices</span></dt><dd> are vertices of polygonal objects, control points of
+  multiplicity three of splines, centers of circles and ellipses,
+  centers and end points of circular arcs, and mark positions.
+<p><span id="id48">&nbsp;</span>  
+
+<dt><span class="tex-bf">boundaries</span></dt><dd> are the object boundaries of polygonal objects,
+  splines and splinegons, circles and ellipses, and circular arcs.
+<p><span id="id49">&nbsp;</span>  
+
+<dt><span class="tex-bf">intersections</span></dt><dd> are the intersection points between the
+  boundaries of path objects.
+</dl>
+
+
+<h2 id="id50">5.3 Angular snapping</h2>
+
+
+
+
+
+
+When <span class="tex-emph">angular snapping</span> is enabled, the mouse position is
+restricted to lie on a set of lines through the <span class="tex-emph">origin</span> of your
+current <span class="tex-emph">axis system</span>. The lines are the lines whose angle with
+the <span class="tex-emph">base direction</span> is an integer multiple of the snap
+angle. The snap angle can be set in the second box in the Snap
+toolbar. The values are indicated in degrees.
+<p>For a snap angle of 180&nbsp;degrees, snapping is to a single line through
+the current origin.
+<p><span id="id51"> 
+In</span> order to use angular snapping, it is important to set the axis
+system correctly. To set the origin, move the mouse to the correct
+position, and press the <kbd>F1</kbd>-key. Note that angular snapping is
+<span class="tex-emph">disabled</span> while setting the origin. This way you can set a new
+origin for angular snapping without leaving the mode first.  Once the
+origin has been set, the base direction is set by moving to a point on
+the desired base line, and pressing the <kbd>F2</kbd>-key. Again, angular
+snapping is disabled.  Together, origin and base direction determine
+the current <span class="tex-emph">axis system</span>. Remember that the origin is also used
+as the fix-point of scale, stretch, and rotate operations, if it is
+set.
+<p>You can hide the current axis system by pressing <kbd>Ctrl+F1</kbd>. This
+also turns off angular snapping, but preserves origin and orientation of
+the axes.  To reset the orientation (such that the <i>x</i>-axis is
+horizontal, use <kbd>Ctrl+F2</kbd>).
+<p>You can set origin and base direction at the same time by pressing
+<kbd>F3</kbd> when the mouse is very near (or snapped to) an edge of a
+polygonal object.  The origin is set to an endpoint of the edge, and
+the base direction is aligned with it. This is useful to make objects
+parallel to a given edge.
+<p><span id="id52">
+For</span> drawing rectilinear or c-oriented polygons, the origin should be
+set to the previous vertex at every step. This can be done by pressing
+<kbd>F1</kbd> every time you click the left mouse button, but that would
+not be very convenient. Therefore, Ipe offers a second angular snap
+mode, called <span class="tex-emph">automatic angular snapping</span>. This mode uses an
+independent origin, which is automatically set every time you add a
+vertex when creating a polygonal object. Note that while the origin is
+independent of the origin set by <kbd>F1</kbd>, the base direction and the
+snap angle used by automatic angular snapping is the same as for
+angular snapping.  Hence, you can align the axis system with some edge
+of your drawing using <kbd>F3</kbd>, and then use automatic angular
+snapping to draw a new object that is parallel or orthogonal to this
+edge.
+<p>This snapping mode has another advantage: It remains silent and
+ineffective until you start creating a polygonal object. So, even with
+automatic angular snapping already turned on, you can still freely
+place the first point of a polygon, and then the remaining vertices
+will be properly aligned to make a <i>c</i>-oriented polygon.
+<p>The automatic angular snapping mode is never active for any
+non-polygonal object.  In particular, to <span class="tex-emph">move</span> an object in a
+prescribed direction, you have to use normal angular snapping.
+<p>A final note: Many things that can be done with angular snapping can
+also be done by drawing auxiliary lines and using context snapping. It
+is mostly a matter of taste and exercise to figure out which mode
+suits you best.
+
+<h2 id="id53">5.4 Interaction of the snapping modes</h2>
+
+<p>Not all the snapping modes can be active at the same time, even if all
+buttons are pressed. Here we have a close look at the possible
+interactions, and the priorities of snapping.
+<p>The two angular snapping modes restrict the possible mouse positions
+to a <span class="tex-emph">one-dimensional</span> subspace of the canvas. Therefore, they are
+incompatible with the modes that try to snap to a zero-dimensional
+subspace, namely vertex snapping, intersection snapping, and grid
+snapping. Consequently, when one of the angular snapping modes is
+<span class="tex-emph">on</span>, vertex snapping, intersection snapping, and grid snapping
+are ineffective.
+<p>On the other hand, it is reasonable to snap to boundaries while in an
+angular snapping mode, and this function is actually implemented
+correctly. When both angular and boundary snapping are <span class="tex-emph">on</span>, Ipe
+will compute intersections between the snap lines with the boundaries
+of your objects, and whenever the mouse position <span class="tex-emph">on</span> the snap
+line comes close enough to an intersection, the mouse is snapped to
+that intersection.
+<p>The two angular snapping modes themselves can also coexist in the same
+fashion. If both angular and automatic angular snapping are enabled,
+Ipe computes the intersection point between the snap lines defined by
+the two origins and snaps there. It the snap lines are parallel or
+coincide, automatic angular snapping is used.
+<p>When no angular snapping mode is active, Ipe has three
+priorities. First, Ipe checks whether the closest vertex or
+intersection point is close enough. If that is not the case, the
+closest boundary edge is determined. If even that is too far away, Ipe
+uses grid snapping (assuming all these modes are enabled).
+<p>Note that this can actually mean that snapping is <span class="tex-emph">not</span> to the
+<span class="tex-emph">closest</span> point on an object. Especially for intersections of two
+straight edges, the closest point can never be the intersection point,
+as in the figure below!
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="intersection.svg"
+      name="intersection"></object>
+</p></div>
+
+<h2 id="id54">5.5 Examples</h2>
+
+<p>It takes some time and practice to feel fully at ease with the different
+snapping modes, especially angular snapping. Here are some examples
+showing what can be done with angular snapping.
+
+<h4 id="id55">Example 1:</h4>
+
+We are given segments <i>s<sub>1</sub></i>, <i>s<sub>2</sub></i>, and <i>e</i>, and we want
+to add the dashed vertical extensions through <i>p</i> and <i>q</i>.
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="example1.svg"
+      name="example1"></object>
+</p></div>
+<ul class="tex-menu"><li>set <kbd>F4</kbd> and <kbd>F5</kbd> snapping on, go into <span class="tex-emph">line</span> mode, and
+  reset axis orientation with <kbd>Ctrl+F2</kbd>,
+<li>go near <i>p</i>, press <kbd>F1</kbd> and <kbd>F8</kbd> to set origin and
+  to turn on angular snap.
+<li>go near <i>p'</i>, click left, and extend segment to <i>s<sub>1</sub></i>.
+<li>go near <i>q</i>, press <kbd>F1</kbd> to reset origin, and draw second
+  extension in the same way.
+</ul>
+
+<h4 id="id56">Example 2:</h4>
+We are given the polygon <i>C</i>, and we want to draw the bracket
+<i>b</i>, indicating its vertical extension.
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="example2.svg"
+      name="example2"></object>
+</p></div>
+<ul class="tex-menu"><li>set <kbd>F4</kbd> and <kbd>F9</kbd> snapping on, go into <span class="tex-emph">line</span> mode, reset
+  axis orientation with <kbd>Ctrl+F2</kbd>, set snap angle to
+90 degrees.
+<li>go near <i>p</i>, press <kbd>F1</kbd> and <kbd>F8</kbd> to set origin and
+  angular snapping
+<li>go to <i>x</i>, click left, extend segment to <i>y</i>, click left
+<li>now we want to have <i>z</i> on a horizontal line through <i>q</i>:
+  go near <i>q</i>, and press <kbd>F1</kbd> and <kbd>F8</kbd> to reset origin
+  and to turn on angular snapping. Now both angular snapping modes are
+  on, the snap lines intersect in <i>z</i>.
+<li>click left at <i>z</i>, goto <i>x</i> and press <kbd>F1</kbd>, goto
+  <i>t</i> and finish bracket.
+</ul>
+
+<h4 id="id57">Example 3:</h4>
+We want to draw the following "skyline". The only problem is to get
+<i>q</i> horizontally aligned with <i>p</i>.
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="example3.svg"
+      name="example3"></object>
+</p></div>
+<ul class="tex-menu"><li>draw the baseline using automatic angular snapping to get it
+horizontal.
+<li>place <i>p</i> with boundary snapping, draw the rectilinear curve up to
+<i>r</i> with automatic angular snapping in
+90 degrees mode.
+<li>now go to <i>p</i> and press <kbd>F1</kbd> and <kbd>F8</kbd>. The snap lines
+intersect in <i>q</i>. Click there, turn off angular snapping with
+<kbd>Shift-F2</kbd>, and finish curve.  The last point is placed with
+boundary snapping.
+</ul>
+
+<h4 id="id58">Example 4:</h4>
+
+We want to draw a line through <i>p</i>, tangent to <i>C</i> in
+<i>q</i>.
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="example4.svg"
+      name="example4"></object>
+</p></div>
+<ul class="tex-menu"><li>with vertex snapping on, put origin at <i>p</i> with <kbd>F1</kbd>
+<li>go to <i>q</i> and press <kbd>F2</kbd>. This puts the base direction from
+  <i>p</i> to <i>q</i>.
+<li>set angular snapping with <kbd>F8</kbd> and draw line.
+</ul>
+
+<h4 id="id59">Example 5:</h4>
+We want to draw the following "windmill".  The angle of the sector and
+between sectors should be
+30 degrees.
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="example5.svg"
+      name="example5"></object>
+</p></div>
+<ul class="tex-menu"><li>set vertex snapping, snap angle to
+30 degrees,
+reset axis orientation with <kbd>Ctrl+F2</kbd>,
+<li>with automatic angular snapping, draw a horizontal segment <i>pq</i>.
+<li>go to <i>p</i>, place origin and turn on angular snapping with
+<kbd>F1</kbd> and <kbd>F8</kbd>,
+<li>duplicate segment with <kbd>d</kbd>, go to <i>q</i> and pick up <i>q</i>
+for rotation (with <font color="#0000ff">Alt</font> and the right mouse button, or by
+switching to rotate mode).  Rotate until segment falls on the next
+snap line.
+<li>turn off angular snapping with <kbd>F8</kbd>. Choose arc mode, variant
+"center &#38; two points".
+<li>go to <i>p</i>, click for center. Go to <i>q</i>, click for first
+endpoint of arc, and at <i>r</i> for the second endpoint. Select all,
+and group.
+<li>turn angular snapping on again. Duplicate sector, and rotate by
+60 degrees
+using angular snapping.
+<li>duplicate and rotate four more times.
+</ul>
+
+<h4 id="id60">Example 6:</h4>
+
+
+We want to draw a <i>c</i>-oriented polygon, where the angles between
+successive segments are multiples of
+30 degrees.
+The automatic angular snapping mode makes this pretty easy, but there is a
+little catch: How do we place the ultimate vertex such that it is at the
+same time properly aligned to the penultimate and to the very first vertex?
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="example6.svg"
+      name="example6"></object>
+</p></div>
+<ul class="tex-menu"><li>set snap angle to
+30 degrees,
+and turn on automatic angular snapping.
+<li>click first vertex <i>p</i> and draw the polygon up to the penultimate
+vertex <i>q</i>.
+<li>it remains to place <i>r</i> such that it is in a legal position both
+with respect to <i>q</i> and <i>p</i>. The automatic angular snapping
+mode ensures the position with respect to&nbsp;<i>q</i>. We will use
+angular snapping from&nbsp;<i>p</i> to get it right: Go near <i>p</i> and
+turn on vertex snapping. Press <kbd>F1</kbd> to place the origin
+at&nbsp;<i>p</i> and <kbd>F8</kbd> to turn on angular snapping. Now it is
+trivial to place&nbsp;<i>r</i>.
+</ul>
+
+<h1 id="sec:stylesheets">6 Stylesheets</h1>
+
+<p>The symbolic attributes appearing in an Ipe document are translated to
+absolute values for rendering by a <span class="tex-emph">stylesheet</span> that is attached
+to the document.  Documents can have multiple "cascaded"
+stylesheets, the sheets form a stack, and symbols are looked up from
+top to bottom.  At the bottom of any stylesheet cascade is always the
+minimal <span class="tex-emph">standard</span> style sheet, which is built into Ipe.  
+<p>When you create a new empty document, it automatically gets a copy of
+this standard style sheet (which does little more than define the
+"normal" attribute for each kind of attribute).  In addition, Ipe
+inserts a predefined list of stylesheets.  The list of these
+stylesheets can be <a href="#sec:customize">customized</a> using an ipelet,
+using Ipe's command line options, and an environment variable.  By
+default, a new document gets the stylesheet <span class="tex-emph">basic</span> that comes
+with Ipe.
+<p>The stylesheet dialog (in the <span class="tex-emph">Edit</span> menu under
+<span class="tex-emph">Stylesheets</span>) allows you to inspect the cascade of stylesheets
+associated with your document, to add and remove stylesheets, and to
+change their order.  You can also save individual stylesheets.
+<p>The stylesheets of your document also determine the symbolic choices
+you have in the Ipe user interface.  If you feel that Ipe does not
+offer you the right choice of colors, pen widths, etc., you are ready
+to make your own style sheet!  Ipe's <span class="tex-emph">styles</span> directory contains a few
+examples to look at. The <span class="tex-emph">colors.isy</span> stylesheet defines all the
+colors of the X11 color database - you could make a selection of these
+for your own use.
+<p>When a stylesheet is "added" to an Ipe document, the contents of the
+stylesheet file is copied into the Ipe document.  Subsequent
+modification of the stylesheet file has no effect on the Ipe document.
+The right way to modify your stylesheet is to either "add" it again,
+and then to delete the <span class="tex-emph">old</span> copy from your stylesheet cascade
+(the one further down in the list), or to use the <span class="tex-emph">Update
+  stylesheets</span> function in the <span class="tex-emph">Edit</span> menu.  This function
+assumes that the stylesheet file is in the same directory as the
+document and that the filename coincides with the name of the
+stylesheet (plus the extension <span class="tex-emph">.isy</span>).
+<p>Removing or replacing a stylesheet can cause some of the symbolic
+attributes in your document to become undefined.  This is not a
+disaster&mdash;Ipe will simply use some default value for any undefined
+symbolic attribute.  To allow you to diagnose the problem, Ipe will
+show a warning listing all undefined symbolic attributes.
+<p>The style sheet is also responsible for determining the paper and
+frame size.  Ipe's default paper size is the ISO standard A4.  If you
+wish to use letter size paper instead, include this style sheet:
+<pre class="tex-verbatim">
+   &lt;ipestyle name="letterpaper"&gt;
+     &lt;layout paper="612 792" origin="0 0" frame="612 792"/&gt;
+   &lt;/ipestyle&gt;
+</pre>
+<p>We discuss a few stylesheet topics below.  Other stylesheet
+definitions that are (mostly) meant for PDF presentations are
+discussed in the next section.
+
+<h4 id="id62">Symbols.</h4>
+<p>Style sheets can also contain <span class="tex-emph">symbols</span>, such as marks and
+arrows, background patterns, or logos.  These are named Ipe objects
+that can be referenced by the document. If your document's stylesheets
+define a symbol named <span class="tex-emph">Background</span>, it will be displayed
+automatically on all pages. (If a layer named "BACKGROUND" is
+present on a page, it suppresses the "Background" symbol for that
+page.  It does not matter if the layer itself is visible or not.) You
+can create and use symbols using the <span class="tex-emph">Symbols</span> ipelet.  Here is a
+(silly) example of a style sheet that defines such a background:
+<pre>&lt;ipestyle name="background"&gt;
+&lt;symbol name="Background" xform="yes"&gt;
+&lt;text pos="10 10" stroke="black" size="LARGE"&gt;
+Background text
+&lt;/text&gt;
+&lt;/symbol&gt;
+&lt;/ipestyle&gt;
+</pre>
+<p>Note the use of the <code>xform</code> attribute&mdash;it ensures that the
+background is embedded only once into PDF document.  This can make a
+huge difference if your background is a complicated object.
+<p>Symbols can be parameterized with a stroke color, fill color, pen
+size, and symbol size.  This means that the actual value of these
+attributes is only set when the symbol is used in the document (not in
+the symbol definition).  The name of a parameterized symbol must end
+with a pair of parentheses containing some of the letters "s"
+(stroke), "f" (fill), "p" (pen), "x" (symbol size), in this
+order.  The symbol definition can then use the special attribute
+values <code>sym-stroke</code>, <code>sym-fill</code>, and <code>sym-pen</code>.  A
+resizable symbol is automatically magnified by the symbol size set in
+the symbol reference.
+<p>A symbol can define several snap positions for the symbol
+object. These positions are then active in vertex snap mode.  Symbols
+with snap positions are also presented differently in the current
+selection (the entire symbol is outlined, like a group, rather than
+just showing a cross at the symbol location), and you can select such
+symbols by clicking near any of the snap positions.
+<p>You can also use a stylesheet to define additional mark shapes, arrow
+shapes, or tiling patterns.
+
+<h4 id="id63">Latex preamble.</h4>
+<p>Stylesheets can also define a piece of LaTeX-preamble for your
+document.  When your text objects are processed by LaTeX, the
+preamble used consists of the pieces on the style sheet cascade, from
+bottom to top, followed by the preamble set for the document itself.
+
+<h4 id="id64">Decorations.</h4>
+<p>A <span class="tex-emph">decoration</span> is a symbol that can be used to decorate a group
+object.  Its name must start with the string <span class="tex-emph">decoration/</span>, and
+it should contain either a path object or a group of path objects.
+<p>Ipe resizes these path objects so that they fit nicely around the
+bounding box of the group object being decorated.  For this to work
+correctly, the decoration object must be drawn such that it decorates
+the rectangle with corners at <i>(100, 100)</i> and <i>(300, 200)</i>. 
+<p>To make a decoration symbol, follow these steps:
+<ul class="tex-itemize"><li>Draw a rectangle. Select <span class="tex-emph">Edit as XML</span> from its context
+  menu, and change the coordinates to look as follows:
+<pre class="tex-verbatim">
+&lt;path stroke="black" fill="lightblue"&gt;
+100 100 m
+300 100 l
+300 200 l
+100 200 l
+h
+&lt;/path&gt;
+</pre>
+<li>Draw your decoration so that it fits this rectangle.  You should
+  draw only path objects.
+<li>Delete the rectangle from the first step.
+<li>If the decoration consists of more than one object, group them
+  all together.
+<li>Save this object as a symbol whose name starts with
+  <span class="tex-emph">decoration/</span> (including the slash).  You can do this either
+  using <span class="tex-emph">create new symbol</span> in the <span class="tex-emph">symbols</span> ipelet, or by
+  selecting <span class="tex-emph">Edit as XML</span> from the object's context menu and
+  copying the code into a stylesheet open in your text editor.
+</ul>
+<p>For inspiration, have a look at the decoration symbols in the
+stylesheet <span class="tex-emph">decorations.isy</span> that comes with Ipe.
+
+
+<h1 id="sec:presentations">7 Presentations</h1>
+
+<p>An Ipe presentation is an Ipe PDF document that is presented using,
+for instance, Acrobat Reader and a video projector.  Ipe has a number of
+features that make it easier to make such presentations.
+<p>The Windows and Linux versions of Ipe come with the presentation tool
+IpePresenter.  It shows the current slide in one window (which you can
+make full screen on the external display), while showing the current
+slide, the next slide, notes for the current page, as well as a timer
+on your own display.  IpePresenter not only works for Ipe
+presentations, but also for presentations made with beamer.  It easily
+fits on and runs from a USB-stick, and does not require Latex on the
+computer where you give the presentation.
+
+<h2 id="id66">7.1 Presentation stylesheets</h2>
+<p>A presentation <span class="tex-emph">must</span> use a dedicated stylesheet.  Presentations
+must use much larger fonts than what is normal for a figure.  Don't
+try to make use of the "LARGE" and "huge" textsizes, but use a
+stylesheet that properly defines "normal" to be a large textsize.
+<p>Ipe comes with a style sheet <span class="tex-emph">presentation.isy</span> that can be used for
+presentations.   To create a new presentation, you can simply say:
+<pre class="tex-verbatim"> 
+  ipe -sheet presentation
+</pre>
+Note that <span class="tex-emph">presentation.isy</span> is meant to be used <span class="tex-emph">instead</span>
+of <span class="tex-emph">basic.isy</span> (not in addition to it).
+<p>This presentation stylesheet enlarges all standard sizes by a
+factor&nbsp;<i>2.8</i>.  Note the use of the <code>&lt;textstretch&gt;</code> element to
+magnify text:
+<pre class="tex-verbatim">
+&lt;textstretch name="normal" value="2.8"/&gt;
+&lt;textstretch name="large" value="2.8"/&gt;
+</pre>
+The text size you choose from the Ipe user interface
+(<span class="tex-emph">"large"</span>, for instance) is in fact used for <span class="tex-emph">two</span>
+symbolic attributes, namely <code>textsize</code> (where <span class="tex-emph">large</span> maps
+to <code>\large</code>) and <code>textstretch</code> (where it maps to no stretch
+in the standard style sheet).  By setting the text stretch, you can
+magnify fonts.
+<p>In addition, the <code>&lt;layout&gt;</code> element in this stylesheet redefines
+the paper size to be of the correct proportions for a projector, and
+defines a smaller area of the paper as the <span class="tex-emph">frame</span>.  The frame is
+the area that should be used for the contents. The <span class="tex-emph">Insert text
+  box</span> function, for instance, creates text objects that fill exactly
+the width of the frame.
+<p>The <code>&lt;titlestyle&gt;</code> element defines the style of the page
+<span class="tex-emph">title</span> outside the frame.  You can set the title for each page
+using the <span class="tex-emph">Edit title &#38; sections</span> function in the <span class="tex-emph">Page</span>
+menu.
+<p>The LaTeX-preamble defined in the <code>&lt;preamble&gt;</code> element
+redefines the standard font shape to <code>cmss</code> (Computer Modern Sans
+Serif).  Many people find sans-serif fonts easier to read on a screen.
+In addition, it redefines the list environments to use less spacing,
+and the text styles to not justify paragraphs (the <code>&lt;textstyle&gt;</code>
+elements). 
+<p>If you wish to use the page transition effects of Acrobat Reader, you
+can define the effects in the stylesheet (using <code>&lt;effect&gt;</code>
+elements), and set them using <span class="tex-emph">Edit effect</span> in the <span class="tex-emph">View</span>
+menu.
+<p><span id="pagenumberstyle">
+If</span> you want to number the pages of the presentation, you'll need to
+use the <code>&lt;pagenumberstyle&gt;</code> element.  It defines color, size,
+position, and alignment of the page number, and provides a template
+for the page number text.  The template can use the following Latex
+counters:
+<ul class="tex-itemize"><li><code>ipePage</code> for the current page number,
+  <li><code>ipeView</code> for the current view number,
+  <li><code>ipePages</code> for the total number of pages,
+  <li><code>ipeViews</code> for the number of views of the current page,
+</ul>
+and the special macro <code>\ipeNumber{x}{y}</code> that evaluates to <code>x</code> when
+the page has only one view, and to <code>y</code> if there is more than one
+view.
+<p>If the template is empty, this has the same effect as the following
+definition (this is also the default definition):
+<pre class="tex-verbatim">
+\ipeNumber{\arabic{ipePage}}{\arabic{ipePage} - \arabic{ipeView}}
+</pre>
+<p>The following example definition indicates the views of a single page
+with letters A, B, C, &hellip;:
+<pre class="tex-verbatim">
+&lt;pagenumberstyle pos="300 100" size="Huge" color="navy" 
+  halign="center"&gt;\ipeNumber{\arabic{ipePage}}{\arabic{ipePage} 
+\Alph{ipeView}}&lt;/pagenumberstyle&gt;
+</pre>
+<p>The following definition uses roman numerals for the pages and does
+not indicate different views at all:
+<pre class="tex-verbatim">
+&lt;pagenumberstyle pos="580 20" size="Huge" color="purple" 
+  halign="right"&gt;\roman{ipePage}&lt;/pagenumberstyle&gt;
+</pre>
+<p>And this shows both the current page and the total number of pages:
+<pre class="tex-verbatim">
+&lt;pagenumberstyle pos="20 820" size="Huge" color="0.5 0 0" 
+  valign="top"&gt;\arabic{ipePage}/\arabic{ipePages}&lt;/pagenumberstyle&gt;
+</pre>
+
+<h2 id="sec:views">7.2 Views</h2>
+
+<p>When making a PDF presentation with Acrobat Reader, one would often
+like to present a page incrementally. For instance, I would first like
+to show a polygon, then add its triangulation, and finally color the
+vertices.  <span class="tex-emph">Views</span> make it possible to do this nicely.
+<p>An Ipe document consists of several pages, each of which can consist
+of an arbitrary number of views.  When saving as PDF, each view
+generates a separate PDF page (if you only look at the result in, say,
+Acrobat reader, you cannot tell whether two pages are actually two
+views of the same Ipe page or two different Ipe pages).
+<p>An Ipe page consists of a number of objects, a number of layers, and a
+number of views.  Each object belongs to exactly one layer.  A layer
+can be shown by any number of views&mdash;a view is really just a list of
+layers to be presented. In addition, a view keeps a record of the
+current active layer&mdash;this makes it easy to move around your views
+and edit them.  Finally, views can specify a graphic effect to be used
+by the PDF viewer when proceeding to the following PDF page.
+<p>To return to our polygon triangulation example, let's create an empty
+page.  We draw a polygon into the default layer "alpha."  Now use
+the <span class="tex-emph">New layer, new view</span> function (in the <span class="tex-emph">Views</span> menu),
+and draw the triangulation into the new layer "beta."  Note that the
+function not only created a new layer, but also a second view showing
+both "alpha" and "beta".  Try moving back and forth between the
+two views (using the PageUp and PageDown keys). You'll see changes in
+the layer list on the left: in view&nbsp;1, layer "alpha" is selected and
+active, in view&nbsp;2, both layers are selected and "beta" is active.
+Create a third layer and view, and mark the vertices.  
+<p>Save in PDF format, and voila, you have a lovely little presentation.
+The result is available <a href="polygon.pdf">here</a>.
+<p>In presentations, one often has slides with mostly text.  The
+<a href="#id28">textbox</a> object is convenient for this, as one
+doesn't need to use the mouse to create it.  To create a slide where
+several text items appear one by one, one only needs to press F10 to
+create a textbox, then <font color="#0000ff">Shift+Ctrl+I</font> to make a new view, F10
+again for the next textbox, and so on.  Finally, one moves the
+textboxes vertically for the most pleasing effect
+(<span class="tex-emph">Shift+Alt+Left Mouse</span> does a constrained vertical translation,
+or <span class="tex-emph">Shift+Left Mouse</span> in <span class="tex-emph">Translate</span> mode).
+<p>Note that all views of a page receive the same bounding box,
+containing all objects visible on some view, plus all objects in a
+layer named "BBOX" (even if that layer is not visible).  This can be
+used to force a larger bounding box without adding a white rectangle
+or the like.
+<p>If you need independent bounding boxes for each view, create a layer
+named "VIEWBBOX".  Any view in which this layer is visible will
+receive a bounding box computed for the objects visible in this view
+only.
+
+<h2 id="id69">7.3 Bookmarks</h2>
+<p>You can set a section title and a subsection title for each page of an
+Ipe document.  Theses titles will be shown in the <span class="tex-emph">bookmarks
+  list</span> (right-click on a toolbar to make it visible).
+Double-clicking a title brings you directly to its page, making
+navigation of long documents much easier.  The titles are also
+exported to PDF, and are visible in the bookmarks view of PDF viewers.
+<p>You can also use the section title of a page to refer to this page in
+<span class="tex-emph">ipetoipe</span> and <span class="tex-emph">iperender</span>.
+
+<h2 id="id70">7.4 Gradient patterns</h2>
+
+<p>Gradient patterns allow to shade objects with continuously changing
+colors.  This is often used for backgrounds, or to achieve the
+illusion of three-dimensional spheres or cylinders.  
+<p>The intended use of gradients is to allow the creation of attractive
+symbols inside the style sheet, for backgrounds, as bullets in item
+lists (see next section), or simply to define attractive glassy-ball
+symbols and the like that can be used through the <span class="tex-emph">Use symbol</span>
+ipelet.
+<p>The Ipe user interface does not offer any way of creating or editing
+gradients.  If your stylesheet defines a gradient, then it is possible
+to fill a path object with this gradient, but getting the gradient
+coordinate system right is not trivial.  (The trick is to draw the
+path object at gradient coordinates, and translate/rotate it to the
+final location afterwards.)
+<p>The definition of a linear (axial) gradient looks like this:
+<pre class="tex-verbatim">
+  &lt;gradient name="linear" type="axial" extend="yes" coords="75 0 325 0"&gt;
+    &lt;stop offset="0.05" color="1 0.4 0"/&gt;
+    &lt;stop offset="0.95" color="1 1 0.4"/&gt;
+  &lt;/gradient&gt;
+</pre>
+If used like this:
+<pre class="tex-verbatim">
+  &lt;path stroke="0" fill="1" gradient="linear" pen="3"&gt;
+    50 50 m 350 50 l 350 150 l 50 150 l h
+  &lt;/path&gt;
+</pre>
+it will look like this:
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="lingrad1.svg"
+      name="lingrad1"></object>
+</p></div>
+A radial gradient looks like this:
+<pre class="tex-verbatim">
+  &lt;gradient name="radial" type="radial" extend="yes"
+  	    coords="200 100 0 200 100 150"&gt;
+    &lt;stop offset="0" color="1 0 0"/&gt;
+    &lt;stop offset="0.5" color="0 0 1"/&gt;
+    &lt;stop offset="1" color="1 0 0"/&gt;
+  &lt;/gradient&gt;
+</pre>
+It will look like this:
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="radgrad1.svg"
+      name="radgrad1"></object>
+</p></div>
+A common use of radial gradients is to define glassy balls like this:
+<pre class="tex-verbatim">
+  &lt;gradient name="ball" type="radial" coords="-4 10 2 0 0 18"&gt;
+    &lt;stop offset="0" color="1 1 1"/&gt;
+    &lt;stop offset="1" color="0 0 1"/&gt;
+  &lt;/gradient&gt;
+</pre>
+Note that the gradient is centered at <span class="tex-emph">0 0</span>, so it needs to be
+moved to the location where it is used:
+<pre class="tex-verbatim">
+  &lt;path matrix="3 0 0 3 100 100" fill="1" gradient="ball"&gt;
+    18 0 0 18 0 0 e
+  &lt;/path&gt;
+</pre>
+<div class="tex-center"><p>
+  <object type="image/svg+xml" data="radgrad2.svg"
+      name="radgrad2"></object>
+</p></div>
+Normally, you would define a symbol looking like a glassy ball in your
+style sheet:
+<pre class="tex-verbatim">
+&lt;ipestyle&gt;
+  &lt;gradient name="ball" type="radial" coords="-4 10 2 0 0 18"&gt;
+    &lt;stop offset="0" color="1 1 1"/&gt;
+    &lt;stop offset="1" color="0 0 1"/&gt;
+  &lt;/gradient&gt;
+  &lt;symbol name="ball(x)" transformations="translations"&gt;
+    &lt;path fill="1" gradient="ball"&gt; 18 0 0 18 0 0 e &lt;/path&gt;
+  &lt;/symbol&gt;
+&lt;/ipestyle&gt;
+</pre>
+The glassy ball can then be used in the document using the <span class="tex-emph">Use
+  symbol</span> ipelet.  Note that <code>transformations="translations"</code>
+ensures that stretching your drawing does not change the glassy ball.
+Adding the <code>(x)</code> suffix to the symbol name allows you to resize
+the glassy ball by changing the symbol size from the properties (the
+same selector used to change the mark size).
+<p>For the precise syntax of the gradient definition see
+<a href="#id132">here</a>.  The easiest method of creating
+gradients, though, is to use an SVG editor such as <span class="tex-emph">Inkscape</span> and
+to convert the SVG gradient to Ipe format using <span class="tex-emph">Svgtoipe</span>.
+
+<h2 id="id71">7.5 Ipe symbols used from text objects</h2>
+<p>Presentations often make use of <code>itemize</code> environments.  You can
+make these prettier in a number of ways:
+<p>You can color your bullets:
+<pre class="tex-verbatim">
+&lt;preamble&gt;
+\def\labelitemi{\LARGE\textcolor{red}{$\bullet$}}
+&lt;/preamble&gt;
+</pre>
+<p>Enumeration numbers could be put in a colored box:
+<pre class="tex-verbatim">
+&lt;preamble&gt;
+\newcommand{\labelenumi}{\fbox{\Roman{enumi}}}
+&lt;/preamble&gt;
+</pre>
+<p>You could use the Dingbats font for nice enumerations, for instance
+by putting <code>\usepackage{pifont}</code> in your preamble, and then having
+text objects with <code>\begin{dinglist}{43}</code> or <code>\begin{dingautolist}{172}</code>
+(or use 182, 192, 202 for various circled numbers).
+<p>You can mark items as "good" and "bad" using these "bullets":
+<p><span class="tex-emph">Bad item</span>:  <code>\textcolor{red}{\ding{55}}</code><br /><span class="tex-emph">Good item</span>: <code>\textcolor{green}{\ding{52}}</code>
+
+
+<h1 id="id72">8 Advanced topics</h1>
+
+<h2 id="sec:sharing">8.1 Sharing Latex definitions with your Latex document</h2>
+
+<p>When using Ipe figures in a Latex document, it is convenient to have
+access to some of the definitions from the document.
+<p>Ipe comes with a Lua script <span class="tex-emph">update-master</span> that makes this
+easy.
+<p>In your Latex document, say <span class="tex-emph">master.tex</span>, surround the
+interesting definitions using <code>%%BeginIpePreamble</code> and
+<code>%%EndIpePreamble</code>, for instance like this:
+<pre class="tex-verbatim">
+  %%BeginIpePreamble
+  \usepackage{amsfonts}
+  \newcommand{\R}{\mathbb{R}}
+  %%EndIpePreamble
+</pre>
+<p>Running the script as 
+<pre class="tex-verbatim">
+  ipescript update-master master.tex
+</pre>
+extracts these definitions and saves them as a stylesheet
+<span class="tex-emph">master-preamble.isy</span>. (This filename is fixed, and does not
+depend on the document name.)
+<p>Running this script as 
+<pre class="tex-verbatim">
+  ipescript update-master master.tex figures/*.ipe
+</pre>
+creates the stylesheet <span class="tex-emph">master-preamble.isy</span> as above.  In
+addition, it looks at all the Ipe figures mentioned on the command
+line. The script adds the new stylesheet to each figure, or updates
+the stylesheet to the newest version (if the figure already contains a
+stylesheet named "master-preamble").
+
+<h2 id="id74">8.2 Writing ipelets</h2>
+
+<p>An ipelet is an extension to Ipe.  Ipe&nbsp;7 uses the scripting language
+<a href="http://www.lua.org">Lua</a> (in fact, most of the Ipe program
+itself is written in Lua), and loads ipelets written in Lua when it
+starts up.  It is also possible to write ipelets in C++, using a small
+Lua wrapper that declares the methods available inside the ipelet.
+<p>Documentation about writing ipelets can be found in the <a href="index.html">Ipelib
+  documentation</a>.
+
+<h2 id="sec:troubleshooting">8.3 Troubleshooting the LaTeX-conversion</h2>
+
+<p>Ipe converts text objects from their Latex source representation  to a
+representation that can be rendered and included in Postscript and PDF
+by creating a Latex source file and running Pdflatex.  This happens in
+a dedicated directory, which Ipe creates the first time it is used.
+The Latex source and output files are left in that directory and not
+deleted even when you close Ipe, to make it easy to solve problems
+with the Latex conversion process.
+<p>You can determine the directory used by Ipe using <span class="tex-emph">Show
+  configuration</span> in the <span class="tex-emph">Help</span> menu.  If you'd prefer to use a
+different directory, set the environment variable <span class="tex-tt">IPELATEXDIR</span>
+before starting Ipe.
+<p>If Ipe fails to translate your text objects, and you cannot find the
+problem by looking at the log file displayed by Ipe (or Ipe doesn't
+even display the log file), you can terminate Ipe, go to the
+conversion directory, and run Pdflatex manually:
+<pre class="tex-verbatim">
+pdflatex ipetemp.tex
+</pre>
+
+<h2 id="id76">8.4 Unicode text</h2>
+
+<p>
+
+
+
+<p>If you make figures containing text objects in languages other than
+English, you will need to enter accented characters, or characters
+from other scripts such as Greek, Hangul, Kana, or Chinese characters.
+Of course you can still use the LaTeX syntax <code>K\"onig</code> to
+enter the German word "K&ouml;nig", but for larger runs of text it's
+more convenient to enter text in a script supported by your system.
+When Ipe writes the Pdflatex source file, it writes the text in UTF-8
+encoded Unicode.  You only have to make sure that Pdflatex can handle
+this file. 
+<p>Instead of the solution below you may want to use Xetex for the
+LaTeX-conversion. It supports Unicode natively.
+<p>An easy solution, sufficient for German, French, and other languages
+for which support is already in a standard LaTeX-setup, is to add
+the line
+<pre class="tex-verbatim">
+\usepackage[utf8]{inputenc}
+</pre>
+in your <span class="tex-emph">Latex preamble</span> (set in the <span class="tex-emph">Document properties</span>
+dialog, available on the <span class="tex-emph">Edit</span> menu).  
+<p>When setting this up, you have to keep in mind that Ipe can only
+handle scalable fonts, such as Postscript Type1 fonts.  You'll have to
+choose a setup that uses such scalable fonts.
+<p>For instance, to use UTF-8 encoded Russian in LaTeX, it is
+sufficient to put this in the preamble:
+<pre class="tex-verbatim">
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+</pre>
+However, this will <span class="tex-emph">not</span> work with Ipe:  This setup uses Metafont
+fonts, which are included in the PDF output as bitmaps, and Ipe cannot
+use these fonts.  In this case the solution is to install the
+<span class="tex-emph">PsCyr</span> package, and the following preamble:
+<pre class="tex-verbatim">
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{pscyr}
+</pre>
+
+<h2 id="sec:customize">8.5 Customizing Ipe</h2>
+
+<p>Since most of Ipe is writing in Lua, an interpreted language, much of
+Ipe's behavior can be changed without recompilation. 
+<p>The main customization options are in the files <span class="tex-emph">prefs.lua</span>
+(general settings), <span class="tex-emph">shortcuts.lua</span> (keyboard shortcuts), and
+<span class="tex-emph">mouse.lua</span> (mouse shortcuts).  (Check the Lua code path in
+<span class="tex-emph">Show configuration</span> in the <span class="tex-emph">Help</span> menu if you can't locate
+the files.)
+<p>If you have installed Ipe for your personal use only (for instance
+under Windows), you can simply modify the original Lua file.  In all
+other cases, you need to provide a small Lua ipelet that will change
+the setting you wish to change.
+<p>A small example is the following ipelet that changes a keyboard
+shortcut and the maximum zoom:
+<pre class="tex-verbatim">
+----------------------------------------------------------------------
+-- My customization ipelet: customize.lua
+----------------------------------------------------------------------
+prefs.max_zoom = 100
+shortcuts.insert_text_box = "I"
+shortcuts.mode_splines = "Alt+Ctrl+I"
+</pre>
+<p>The ipelet needs to be placed with the extension <span class="tex-emph">.lua</span> somewhere
+on the ipelet path (check <span class="tex-emph">Show configuration</span> again).  On Unix,
+the directory <code>&#36;HOME/.ipe/ipelets</code> will do nicely.  On Windows,
+you will have to set the environment variable IPELETPATH, see the
+<a href="#sec:environment">next section</a>.
+
+<h2 id="sec:environment">8.6 Environment variables</h2>
+
+<p>Ipe, <span class="tex-emph">ipetoipe</span>, <span class="tex-emph">iperender</span>, and <span class="tex-emph">ipescript</span> respect
+the following environment variables:
+<dl class="tex-description"><dt><span class="tex-bf">IPELATEXDIR</span></dt><dd> the directory where Ipe runs Latex.
+<dt><span class="tex-bf">IPELATEXPATH</span></dt><dd> the directory that contains the <span class="tex-emph">pdflatex</span>,
+  <span class="tex-emph">xelatex</span>, and <span class="tex-emph">lualatex</span> commands.  If not set, Ipe
+  assumes the commands are on your path.
+<dt><span class="tex-bf">IPEDEBUG</span></dt><dd> set to 1 for debugging output.
+<dt><span class="tex-bf">IPEANCIENTPDFTEX</span></dt><dd> set this variable to use Pdftex versions older
+  than&nbsp;1.40.
+<dt><span class="tex-bf">IPETEXFORMAT</span></dt><dd> if set, Ipe will not call pdflatex but pdftex
+  requesting the pdflatex format (and similarly for xetex and luatex).
+  This is needed to use cygwin's latex.
+</dl>
+<p>The Ipe program uses several additional environment variables:
+<dl class="tex-description"><dt><span class="tex-bf">EDITOR</span></dt><dd> external editor to use for editing text objects.
+<dt><span class="tex-bf">IPESTYLES</span></dt><dd> a list of directories, separated by semicolons on
+  Windows and colons otherwise, where Ipe looks for stylesheets, for
+  instance for the standard stylesheet <span class="tex-emph">basic.isy</span>. You can write
+  &#95; (a single underscore) for the system-wide stylesheet directory.
+  If this variable is not set, the default consists of the system-wide
+  stylesheet directory, plus <span class="tex-emph">~/.ipe/styles</span> on Unix, plus
+  <span class="tex-emph">~/Library/Ipe/Styles</span> on OS&nbsp;X.
+<dt><span class="tex-bf">IPELETPATH</span></dt><dd> a list of directories, separated by semicolons on
+  Windows and colons otherwise, containing ipelets. You can write &#95;
+  (a single underscore) for the system-wide ipelet directory. If this
+  variable is not set, the default consists of the system-wide ipelet
+  directory, plus <span class="tex-emph">~/.ipe/ipelets</span> on Unix, plus
+  <span class="tex-emph">~/Library/Ipe/Ipelets</span> on OS&nbsp;X.
+<dt><span class="tex-bf">IPEICONDIR</span></dt><dd> directory containing icons for the Ipe user interface.
+<dt><span class="tex-bf">IPEDOCDIR</span></dt><dd> directory containing Ipe documentation.
+<dt><span class="tex-bf">IPELUAPATH</span></dt><dd> path for searching for Ipe Lua code.
+</dl>
+<p>The <span class="tex-emph">ipescript</span> program uses the following environment variable:
+<dl class="tex-description"><dt><span class="tex-bf">IPESCRIPTS</span></dt><dd> a list of directories, separated by semicolons on
+  Windows and colons otherwise, where <span class="tex-emph">ipescript</span> looks for
+  scripts. You can write &#95; (a single underscore) for the system-wide
+  script directory.  If this variable is not set, the default consists
+  of the current directory and the system-wide script directory, plus
+  <span class="tex-emph">~/.ipe/scripts</span> on Unix, plus
+  <span class="tex-emph">~/Library/Ipe/Scripts</span> on OS&nbsp;X.
+</dl>
+
+<h4 id="id79">ipe.conf</h4>
+
+<p>Ipe allows you to set environment variables by writing the definitions
+in a file <span class="tex-emph">ipe.conf</span>.  On Windows, the file has to be in the top
+level of the Ipe directory (the same place that contains the
+<span class="tex-emph">readme.txt</span> and <span class="tex-emph">gpl.txt</span> files), on Linux and OSX it is
+simply <span class="tex-emph">.ipe/ipe.conf</span> in your home directory.  Each line of the
+file contains a setting for one environment variable, for instance
+like this:
+<pre class="tex-verbatim">
+IPEDEBUG=1
+IPELATEXDIR=C:\latexrun
+</pre>
+
+<h2 id="id80">8.7 Ipe on a USB-stick</h2>
+
+<p>To prepare a USB-stick from which you can run Ipe without installing
+anything to a Windows computer, you first need to install
+<a href="https://www.tug.org/texlive/">texlive</a>.  Download
+<span class="tex-emph">install-tl-windows.exe</span> and run it, selecting the option for
+<span class="tex-emph">Custom install</span>.  When the full installer starts, change
+<span class="tex-emph">Portable setup</span> to <span class="tex-emph">Yes</span>, and change the <span class="tex-emph">TEXDIR</span>
+directory to <span class="tex-emph">X:\texlive</span>, where <span class="tex-emph">X</span> is the drive
+letter of the USB-stick.  You can also decrease the size of your
+installation by unselecting unnecessary packages and languages.
+<p>Installing texlive will take quite a while.  When it is done, unzip
+the Ipe package for Windows onto the root of the USB-stick.  You
+should have the Ipe binary in
+<span class="tex-emph">X:\ipe-7.x.y\bin\ipe.exe</span>.
+<p>Now create a directory <span class="tex-emph">X:\latexrun</span> (it will be used by
+Ipe to run Latex).
+<p>Finally, you need to create a small <a href="#id79">configuration
+  file</a> as <span class="tex-emph">X:\ipe-7.x.y\ipe.conf</span>.
+The contents of the file should be:
+<pre class="tex-verbatim">
+IPELATEXPATH=\texlive\bin
+IPELATEXDIR=\latexrun
+</pre>
+<p>It should now work to run Ipe from the USB-stick, whenever you plug it
+into a Windows computer.
+
+<h2 id="sec:wine">8.8 Running Ipe under Wine on Linux</h2>
+
+<p>Ipe itself works fine under Wine, but there is an issue: We don't want
+to create a new tex installation for Windows under Wine, we want to
+reuse the Linux tex installation!
+<p>So first we need to make the pdflatex program available to Wine, by
+putting a symbolic link in the simulated <span class="tex-tt">C:</span> drive.
+<pre class="tex-verbatim">
+$ cd ~/.wine/drive_c/windows/
+$ ln -s /usr/bin/pdflatex pdflatex.exe
+</pre>
+<p>The second problem is that Ipe is not able to wait for the completion
+of the pdflatex call&mdash;it starts pdflatex, and then immediately tries
+to read the pdflatex output, which of course fails.  The solution is
+to make Ipe wait for a specified number of milliseconds before trying
+to read the pdflatex output.
+<p>You achieve this by creating a small text file called
+<a href="#id79">ipe.conf</a> and placing it in the top-level Ipe
+directory (that is, the directory that contains <span class="tex-emph">readme.txt</span> and
+<span class="tex-emph">gpl.txt</span>).  The contents of the file should be:
+<pre class="tex-verbatim">
+IPEWINE=1000
+IPELATEXPATH=c:\windows
+</pre>
+<p>(You can define any other environment variable in the same file.)
+
+<h2 id="sec:cygwin">8.9 Using cygwin latex on Windows</h2>
+
+<p>If you have cygwin on your Windows computer and wish to use the cygwin
+installation of Latex (rather than MikTeX or texlive), create a small
+text file called <a href="#id79">ipe.conf</a> and place it in the
+top-level Ipe directory (that is, the directory that contains
+<span class="tex-emph">readme.txt</span> and <span class="tex-emph">gpl.txt</span>).  The contents of the file
+should be:
+<pre class="tex-verbatim">
+IPETEXFORMAT=1
+IPELATEXPATH=c:\cygwin\bin
+</pre>
+(You'll need to check the exact path containing your cygwin
+binaries. On 64&nbsp;bit cygwin, it's probably <code>c:\cygwin64\bin</code>.)
+<p>You can define any other environment variable in the same file.
+<p>You need the cygwin packages <span class="tex-emph">texlive-collection-latex</span> and
+<span class="tex-emph">texlive-collection-latexrecommended</span>.
+<p>Note that it's not necessary to add the cygwin path to your general
+Windows path.
+
+
+<h1 id="sec:xml">9 The Ipe file format</h1>
+
+<p>Ipe can store documents in two different formats.  One of them is
+standard PDF, which can be read by any application capable of opening
+PDF files.  (Ipe embeds its own information inside PDF files.  The way
+this is done is not documented here, and may change between releases
+of Ipe.)
+<p>The second Ipe file format is a pure XML implementation.  Files stored
+in this format can be parsed with any XML-aware application, and you
+can create XML files for Ipe from your own applications.
+<p>A DTD for the Ipe format is available as <a href="ipe.dtd">ipe.dtd</a>. For
+instance, you can use this to validate an Ipe document using
+<pre class="tex-verbatim">
+xmllint --dtdvalid ipe.dtd --noout file.ipe
+</pre>
+<p>The tags understood by Ipe are described informally in this section.
+Tags in the XML file can carry attributes other than the ones
+documented here.  Ipe ignores all attributes it does't understand, and
+they will be lost if the document is saved again from Ipe.  Ipe will
+complain about any XML elements not described here, with the exception
+that you can use elements whose name starts with "x-" freely to add
+your own information inside an Ipe file.
+<p>An Ipe XML file must contain exactly one <code>&lt;ipe&gt;</code> element, while
+an Ipe stylesheet file must contain exactly one <code>&lt;ipestyle&gt;</code>
+element (both types of files are allowed to start with an
+<code>&lt;?xml&gt;</code> tag, which is simply ignored by Ipe).  An Ipe file may
+also contain a <code>&lt;!DOCTYPE&gt;</code> tag.
+<p>All elements are documented below.
+
+<h2 id="id84">9.1 The <span class="tex-tt">&lt;ipe&gt;</span> element</h2>
+
+<h4 id="id85">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">version</span></dt><dd> (required) The value (a number, e.g.&nbsp;70103 for
+  Ipelib&nbsp;7.1.3) indicates the earliest Ipelib version that can
+  interpret the document. Ipe will refuse to load documents that
+  require a version larger than its own, and may refuse to load
+  documents that are too old (and which will have to be converted
+  using a separate program).
+<dt><span class="tex-bf">creator</span></dt><dd> (optional) indicates the program that created the file
+  and is not interpreted by Ipe at all.
+</dl>
+
+<h4 id="id86">Contents</h4>
+<ol class="tex-enumerate"><li>An <code>&lt;info&gt;</code> element (optional),
+<li>a <code>&lt;preamble&gt;</code> element (optional),
+<li>a series of <code>&lt;bitmap&gt;</code> and <code>&lt;ipestyle&gt;</code> elements
+  (optional),
+<li>a series of <code>page</code> elements.
+</ol>
+<p>The <code>&lt;ipestyle&gt;</code> elements form a "cascade", with the
+<span class="tex-emph">last</span> <code>&lt;ipestyle&gt;</code> element becoming the <span class="tex-emph">top-level</span>
+style sheet.  When symbolic names are looked up, the style sheets are
+checked from top to bottom.  Ipe always appends the built-in standard
+style sheet at the bottom of the stack.
+
+<h3 id="id87">9.1.1 The <span class="tex-tt">&lt;info&gt;</span> element</h3>
+
+<h4 id="id88">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">title</span></dt><dd> (optional) document title,
+<dt><span class="tex-bf">author</span></dt><dd> (optional) document author,
+<dt><span class="tex-bf">subject</span></dt><dd> (optional) document subject,
+<dt><span class="tex-bf">keywords</span></dt><dd> (optional) document keywords,
+<dt><span class="tex-bf">pagemode</span></dt><dd> (optional) the only value understood by Ipe is
+  <code>fullscreen</code>, which causes the document to be opened in full
+  screen mode in PDF readers.
+<dt><span class="tex-bf">created</span></dt><dd> (optional) creation time in PDF format,
+  e.g.&nbsp;"D:20030127204100".
+<dt><span class="tex-bf">modified</span></dt><dd> (optional) modification time in PDF format,
+<dt><span class="tex-bf">numberpages</span></dt><dd> (optional) if the value is <code>yes</code>, then Ipe
+  will save PDF documents with visible page numbers on each page.
+<dt><span class="tex-bf">tex</span></dt><dd> (optional) determines the TeX-engine used to translate
+  your text.  The possible values are <span class="tex-tt">pdftex</span>, <span class="tex-tt">xetex</span>,
+  and <span class="tex-tt">luatex</span>.
+</dl> 
+<p>This element must be empty.
+
+<h3 id="id89">9.1.2 The <span class="tex-tt">&lt;preamble&gt;</span> element</h3>
+<p>The contents of this element is LaTeX source code, to be used as
+the LaTeX preamble when running LaTeX to process the text
+objects in the document. It should <span class="tex-emph">not</span> contain a
+<code>\documentclass</code> command, but can contain <code>\usepackage</code>
+commands and macro definitions.
+
+<h3 id="id90">9.1.3 The <span class="tex-tt">&lt;bitmap&gt;</span> element</h3>
+<p>Each <code>&lt;bitmap&gt;</code> element defines a bitmap to be used by
+<code>&lt;image&gt;</code> objects. 
+
+<h4 id="id91">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">id</span></dt><dd> (required)
+  the value must be an integer that will define the bitmap throughout
+  the Ipe document,
+<dt><span class="tex-bf">width</span></dt><dd> (required) integer width in pixels,
+<dt><span class="tex-bf">height</span></dt><dd> (required) integer height in pixels,
+<dt><span class="tex-bf">ColorSpace</span></dt><dd> (optional) possible values are "DeviceGray",
+  "DeviceGrayAlpha", "DeviceRGB" (default value), and
+  "DeviceRGBAlpha". The suffix "Alpha" indicates the presence of
+  an alpha channel.
+<dt><span class="tex-bf">ColorKey</span></dt><dd> (optional) an RGB color in hexadecimal, indicating the
+  transparent color (not supported for JPEG images and for images with
+  alpha channel),
+<dt><span class="tex-bf">length</span></dt><dd> (required unless there is no filter and no alpha
+  channel) the number of bytes of image data,
+<dt><span class="tex-bf">Filter</span></dt><dd> (optional) possible values are "FlateDecode" or
+  "DCTDecode" to indicate a compressed image (the latter is used for
+  JPEG images),
+<dt><span class="tex-bf">encoding</span></dt><dd> (optional) possible value is "base64" to indicate
+  that the image data is base64-encoded (not in hexadecimal),
+<dt><span class="tex-bf">alphaLength</span></dt><dd> (optional) indicates that the alpha channel is
+  provided separately.
+</dl>
+<p>The contents of the <code>&lt;bitmap&gt;</code> element is the image data, either
+base64-encoded or in hexadecimal format.  White space between bytes is
+ignored.  If no filter is specified, pixels are stored row by row.
+<p>If <code>alphaLength</code> present, then the alpha channel follows the
+image data.  If the data is deflated, image data and alpha channel are
+deflated separately.  If no <code>alphaLength</code> is present, then the
+alpha component is part of each pixel before the color components.
+<p>Bitmaps use 8-bit color and alpha components.  Bitmaps with color maps
+or with a different number of bits per component are not supported,
+and such support is not planned. (The <span class="tex-emph">Insert image</span> function
+does allow you to insert arbitrary image formats, but they are stored
+as 8-bit per component images.  Since the data is compressed, this
+does not seriously increase the image data size.)
+
+<h2 id="id92">9.2 The <span class="tex-tt">&lt;page&gt;</span> element</h2>
+
+<h4 id="id93">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">title</span></dt><dd> (optional) title of this page (displayed at a fixed
+  location in a format specified by the style sheet),
+<dt><span class="tex-bf">section</span></dt><dd> (optional) Title of document section starting with this
+  page. If the attribute is not present, this page continues the
+  section of the previous page.  If the attribute is present, but its
+  value is an empty string, then the contents of the <code>title</code>
+  attribute is used instead.
+<dt><span class="tex-bf">subsection</span></dt><dd> (optional) Title of document subsection starting
+  with this page. If the attribute is not present, this page continues
+  the subsection of the previous page.  If the attribute is present,
+  but its value is an empty string, then the contents of the
+  <code>title</code> attribute is used instead.
+<dt><span class="tex-bf">marked</span></dt><dd> (optional) The page is marked for printing unless the
+  value of this attribute is <code>no</code>.
+</dl>
+
+<h4 id="id94">Contents</h4>
+<ol class="tex-enumerate"><li>An optional <code>&lt;notes&gt;</code> element,
+<li>a possibly empty sequence of <code>&lt;layer&gt;</code> elements,
+<li>a possibly empty sequence of <code>&lt;view&gt;</code> elements,
+<li>a possibly empty sequence of Ipe object elements.
+</ol>
+<p>If a page contains no layer element, Ipe automatically adds a default
+layer named "alpha", visible and editable. 
+<p>If a page contains no view element, a single view where all layers are
+visible is assumed.
+
+<h3 id="id95">9.2.1 The <span class="tex-tt">&lt;notes&gt;</span> element</h3>
+<p>This element has no attributes.  Its contents is plain text,
+containing notes for this page.
+
+<h3 id="id96">9.2.2 The <span class="tex-tt">&lt;layer&gt;</span> element</h3>
+
+<h4 id="id97">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) Name of the layer.  It must not contain white
+  space.
+<dt><span class="tex-bf">edit</span></dt><dd> (optional) The value should be <code>yes</code> or
+  <code>no</code> and indicates whether the user can select and modify the
+  contents of the layer in the Ipe user interface (of course the user
+  can always modify the setting of the attribute).
+</dl>
+<p>The layer element must be empty.
+
+<h3 id="id98">9.2.3 The <span class="tex-tt">&lt;view&gt;</span> element</h3>
+
+<h4 id="id99">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">layers</span></dt><dd> (required) The value must be a sequence of layer names
+  defined in this page, separated by white space.
+<dt><span class="tex-bf">active</span></dt><dd> (required) The layer that is the active layer in this view.
+<dt><span class="tex-bf">effect</span></dt><dd> (optional) The symbolic name of a graphics effect to be
+  used during the PDF page transition.  The effect must be defined in
+  the style sheet.
+<dt><span class="tex-bf">marked</span></dt><dd> (optional) The view is marked for printing if the value
+  of this attribute is <code>yes</code>.
+</dl>
+<p>The view element must be empty.
+
+<h2 id="id100">9.3 Ipe object elements</h2>
+
+<h4 id="id101">Common attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">layer</span></dt><dd> (optional) Only allowed on "top-level" objects, that
+  is, objects directly inside a <code>&lt;page&gt;</code> element.  The value
+  indicates into which layer the object goes.  If the attribute is
+  missing, the object goes into the same layer as the preceding
+  object.  If the first object has no layer attribute, it goes into
+  the layer defined first in the page, or the default "alpha" layer.
+<dt><span class="tex-bf">matrix</span></dt><dd> (optional) A sequence of six real numbers,
+  separated by white space, indicating a transformation matrix for all
+  coordinates inside the element (including embedded elements if this is
+  a <code>&lt;group&gt;</code> element).  A missing <code>matrix</code> attribute is
+  interpreted as the identity matrix.
+<dt><span class="tex-bf">pin</span></dt><dd> (optional) Possible values are <code>yes</code> (object is fixed
+  on the page), <code>h</code> (object is pinned horizontally, but can move
+  in the vertical direction), and <code>v</code> (the opposite).  The
+  default is no pinning.
+<dt><span class="tex-bf">transformations</span></dt><dd> (optional) This attribute determines how
+  objects can be deformed by transformations. Possible values are
+  <span class="tex-emph">affine</span> (the default), <span class="tex-emph">rigid</span>, and <span class="tex-emph">translations</span>.
+</dl>
+
+<h4 id="id102">Color attribute values</h4>
+<p>A color attribute value is either a symbolic name defined in one of
+the style sheets of the document, one of the predefined names
+"black" or "white", a single real number between <i>0</i>&nbsp;(black) and
+<i>1</i>&nbsp;(white) indicating a gray level, or three real numbers in the
+range&nbsp;<i>[0,1]</i> indicating the red, green, and blue component (in this
+order), separated by white space.
+
+<h4 id="id103">Path construction operators</h4>
+<p>Graphical shapes in Ipe are described using a series of "path
+construction operators" with arguments. This generalizes the PDF path
+construction syntax.
+<p>Each operator follows its arguments.  The operators are
+<ul class="tex-menu"><li><code>m</code> (moveto) (1 point argument): begin new subpath.
+<li><code>l</code> (lineto) (1 point argument): add straight segment to
+  subpath.
+<li><code>c</code> (cubic B-spline) (<i>n</i> point arguments): 
+  add a uniform cubic B-spline with <i>n+1</i> control points (the current
+  position plus the <i>n</i> arguments).  If <i>n = 3</i>, this is equivalent to
+  a single cubic B&eacute;zier spline, if <i>n = 2</i> it is equivalent to a
+  single quadratic B&eacute;zier spline.
+<li><code>q</code> (deprecated) (2 point arguments): identical to 'c'.
+<li><code>e</code> (ellipse) (1 matrix argument): add a closed subpath
+  consisting of an ellipse, the ellipse is the image of the unit
+  circle under the transformation described by the matrix.
+<li><code>a</code> (arcto) (1 matrix argument, 1 point argument): add an
+  elliptic arc, on the ellipse describe by the matrix, from current
+  position to given point.
+<li><code>s</code> (deprecated) (<i>n</i> point arguments): add an "old
+  style"  uniform cubic B-spline as used by Ipe up to version&nbsp;7.1.6.
+<li><code>u</code> (closed spline) (<i>n</i> point arguments): add a closed
+  subpath consisting of a closed uniform B-spline with <i>n</i> control
+  points,
+<li><code>h</code> (closepath) (no arguments): close the current subpath.
+  No more segments can be added to this subpath, so the next operator
+  (if there is one) must start a new subpath.
+</ul>
+Paths consisting of more than one closed loop are allowed.  A subpath
+can consist of any mix of straight segments, elliptic arcs, and
+B-splines.
+
+<h3 id="id104">9.3.1 The <span class="tex-tt">&lt;group&gt;</span> element</h3>
+<p>The <code>&lt;group&gt;</code> element allows to group objects together, so that
+they appear as one in the user interface.  
+
+<h4 id="id105">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">clip</span></dt><dd> (optional) The value is a sequence of path construction
+  operators, forming a clipping path for the objects inside the group.
+<dt><span class="tex-bf">url</span></dt><dd> (optional) The value is a link action (and the attribute
+  name is somewhat of a misnomer, as actions do not need to be
+  URLs&mdash;see the description of group objects).
+<dt><span class="tex-bf">decoration</span></dt><dd> (optional) The name of a decoration symbol.  The
+  default is <span class="tex-emph">normal</span>, meaning no decoration.
+</dl>
+<p>The contents of the <code>&lt;group&gt;</code> element is a series of Ipe object
+elements.
+
+<h3 id="id106">9.3.2 The <span class="tex-tt">&lt;image&gt;</span> element</h3>
+
+<h4 id="id107">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">bitmap</span></dt><dd> (required) Value is an integer referring
+  to a bitmap defined in a <code>&lt;bitmap&gt;</code> element in the document,
+<dt><span class="tex-bf">rect</span></dt><dd> (required) Four real coordinates separated by white space,
+  in the order <i>x<sub>1</sub></i>, <i>y<sub>1</sub></i>, <i>x<sub>2</sub></i>, <i>y<sub>2</sub></i>, indicating two
+  opposite corners of the image in Ipe coordinates).
+</dl>
+<p>The image element is normally empty.  However, it is allowed to omit
+the <code>bitmap</code> attribute.  In this case, the <code>&lt;image&gt;</code> must
+carry all the attributes of the <code>&lt;bitmap&gt;</code> element, with the
+exception of <code>id</code>.  The element contents is then the bitmap data,
+as described for <code>&lt;bitmap&gt;</code>.
+
+<h3 id="id108">9.3.3 The <span class="tex-tt">&lt;use&gt;</span> element</h3>
+<p>The <code>&lt;use&gt;</code> element refers to a symbol (an Ipe object) defined in
+the style sheet.  The attributes <code>stroke</code>, <code>fill</code>,
+<code>pen</code>, and <code>size</code> make sense only when the symbol accepts
+these parameters.
+
+<h4 id="id109">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) The name of a <code>symbol</code> defined in a style
+  sheet of the document.
+<dt><span class="tex-bf">pos</span></dt><dd> (optional) Position of the symbol on the page (two real
+  numbers, separated by white space).  This is the location of the
+  origin of the symbol coordinate system.  The default is the origin.
+<dt><span class="tex-bf">stroke</span></dt><dd> (optional) A stroke color (used whereever the symbol
+  uses the symbolic color "sym-stroke").  The default is black.
+<dt><span class="tex-bf">fill</span></dt><dd> (optional) A fill color (used whereever the symbol uses
+  the symbolic color "sym-fill").  The default is white.
+<dt><span class="tex-bf">pen</span></dt><dd> (optional) A line width (used whereever the symbol uses
+  the symbolic value "sym-pen").  The default is "normal".
+<dt><span class="tex-bf">size</span></dt><dd> (optional) The size of the symbol, either a symbolic size
+  (of type "symbol size"), or an absolute scaling factor.  The
+  default is <i>1.0</i>.
+</dl>
+<p>The <code>&lt;use&gt;</code> element must be empty.
+
+<h3 id="id110">9.3.4 The <span class="tex-tt">&lt;text&gt;</span> element</h3>
+
+<h4 id="id111">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">stroke</span></dt><dd> (optional) The stroke color. If the attribute is
+  missing, black will be used.
+<dt><span class="tex-bf">type</span></dt><dd> (optional) Possible values are <span class="tex-emph">label</span> (the default)
+  and <span class="tex-emph">minipage</span>.
+<dt><span class="tex-bf">size</span></dt><dd> (optional) The font size&mdash;either a symbolic name defined
+  in a style sheet, or a real number.  The default is "normal".
+<dt><span class="tex-bf">pos</span></dt><dd> (required) Two real numbers separated by white space,
+  defining the position of the text on the paper.
+<dt><span class="tex-bf">width</span></dt><dd> (required for minipage objects, optional for label
+  objects) The width of the object in points.
+<dt><span class="tex-bf">height</span></dt><dd> (optional) The total height of the object in points.
+<dt><span class="tex-bf">depth</span></dt><dd> (optional) The depth of the object in points.
+<dt><span class="tex-bf">valign</span></dt><dd> (optional) Possible values are <span class="tex-emph">top</span> (default
+  for a minipage object), <span class="tex-emph">bottom</span> (default for a label object),
+  <span class="tex-emph">center</span>, and <span class="tex-emph">baseline</span>.
+<dt><span class="tex-bf">halign</span></dt><dd> (optional, label only) Possible values are <span class="tex-emph">left</span>,
+  <span class="tex-emph">right</span>, and <span class="tex-emph">center</span>. <span class="tex-emph">left</span> is the default.  This
+  determines the position of the reference point with respect to the
+  text box.  
+<dt><span class="tex-bf">style</span></dt><dd> (optional, minipage only) Selects a LaTeX "style" to
+  be used for formatting the text, and must be a symbolic name defined
+  in a style sheet.  The standard style sheet defines the styles
+  "normal", "center", "itemize", and "item".  If the
+  attribute is not present, the "normal" style is applied.
+<dt><span class="tex-bf">opacity</span></dt><dd> (optional) Opacity of the element.  This must be a
+  symbolic name. The default is&nbsp;"normal", meaning fully opaque.
+</dl>  
+<p>The dimensions are recomputed by Ipe when running LaTeX, with the
+exception of <code>width</code> for minipage objects whose width is fixed.
+<p>The contents of the <code>&lt;text&gt;</code> element must be a legal LaTeX
+fragment that can be interpreted by LaTeX inside <code>\hbox</code>,
+possibly using the macros or packages defined in the preamble.
+
+<h3 id="id112">9.3.5 The <span class="tex-tt">&lt;path&gt;</span> element</h3>
+
+<h4 id="id113">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">stroke</span></dt><dd> (optional) The stroke color. If the attribute is
+  missing, the shape will not be stroked.
+<dt><span class="tex-bf">fill</span></dt><dd> (optional) The fill color.  If the attribute is missing,
+  the shape will not be filled.
+<dt><span class="tex-bf">dash</span></dt><dd> (optional) Either a symbolic name defined in a style
+  sheet, or a dash pattern in PDF format, such as "[3 1] 0" for
+  "three pixels on, one off, starting with the first pixel".
+  If the attribute is missing, a solid line is drawn.
+<dt><span class="tex-bf">pen</span></dt><dd> (optional) The line width, either symbolic (defined in
+  a style sheet), or as a single real number.  The default value is
+  "normal". 
+<dt><span class="tex-bf">cap</span></dt><dd> (optional) The <span class="tex-emph">line cap</span> setting of PDF as an
+  integer.  If the argument is missing, the setting from the style
+  sheet is used.
+<dt><span class="tex-bf">join</span></dt><dd> (optional) The <span class="tex-emph">line join</span> setting of PDF as an
+  integer. If the argument is missing, the setting from the style
+  sheet is used.
+<dt><span class="tex-bf">fillrule</span></dt><dd> (optional) Possible values are <code>wind</code> and
+  <code>eofill</code>, selecting one of two algorithms for determining
+  whether a point lies inside a filled object. If the argument is
+  missing, the setting from the style sheet is used.
+<dt><span class="tex-bf">arrow</span></dt><dd> (optional) The value consists of a symbolic name, say
+  "triangle" for an arrow type (a symbol with name
+  "arrow/triangle(spx)"), followed by a slash and the size of the arrow.
+  The size is either a symbolic name (of type "arrowsize") defined
+  in a style sheet, or a real number.  If the attribute is missing, no
+  arrow is drawn.
+<dt><span class="tex-bf">rarrow</span></dt><dd> (optional) Same for an arrow in the reverse direction
+  (at the beginning of the first subpath).
+<dt><span class="tex-bf">opacity</span></dt><dd> (optional) Opacity of the element.  This must be a
+  symbolic name. The default is&nbsp;"normal", meaning fully opaque.
+<dt><span class="tex-bf">tiling</span></dt><dd> (optional) A tiling pattern to be used to fill the
+  element.  The default is not to tile the element.  If the element is
+  not filled, then the tiling pattern is ignored.
+<dt><span class="tex-bf">gradient</span></dt><dd> (optional) A gradient pattern to be used to fill the
+  element.  If the element is not filled, then the gradient pattern is
+  ignored. (The fill color is only used for rendering where gradients
+  are not available, for instance currently in Postscript.)
+  If <code>gradient</code> is set, then <code>tiling</code> is ignored.
+</dl>
+<p>The contents of the <code>&lt;path&gt;</code> element is a sequence of path
+construction operators. The entire shape will be stroked and/or filled
+with a single stroke and fill operation.
+
+<h2 id="id114">9.4 The <span class="tex-tt">&lt;ipestyle&gt;</span> element</h2>
+
+<h4 id="id115">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (optional) The name serves to identify the style sheet
+  informally, and can be used to automatically update the style sheet
+  from a file with the matching name.
+</dl>
+<p>The contents of the <code>&lt;ipestyle&gt;</code> element is a series of style
+definition elements, in no particular order.  These elements are
+described below.
+
+<h3 id="id116">9.4.1 The <span class="tex-tt">&lt;symbol&gt;</span> element</h3>
+
+<h4 id="id117">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) The name identifies the symbol and must
+  be unique in the style sheet.  For parameterized symbols, the name
+  must end with the pattern "(s?f?p?x?)", where "s" stands for
+  stroke, "f" for fill, "p" for pen, and "x" for size.
+<dt><span class="tex-bf">transformations</span></dt><dd> (optional) As for objects.
+<dt><span class="tex-bf">xform</span></dt><dd> (optional) If this attribute is set, a PDF XForm will be
+  created for this symbol when saving or exporting to PDF. It implies
+  <code>transformations="translations"</code>, and will be ignored if 
+  any of the symbol parameters (that is, stroke, fill, pen, or size)
+  are used.  Setting this attribute will cause the PDF output to be
+  significantly smaller for a complicated symbol that is used often
+  (for instance, a complicated background used on every page).
+<dt><span class="tex-bf">snap</span></dt><dd> (optional) A list of space-separated coordinates for the
+  snap positions of the symbol.
+</dl>
+<p>The contents of the <code>&lt;symbol&gt;</code> element is a single Ipe object.
+
+<h3 id="id118">9.4.2 The <span class="tex-tt">&lt;preamble&gt;</span> element</h3>
+<p>See the <span class="tex-tt">&lt;preamble&gt;</span> elements inside <code>&lt;ipe&gt;</code> elements.
+
+<h3 id="id119">9.4.3 The <span class="tex-tt">&lt;textstyle&gt;</span> element</h3>
+
+<h4 id="id120">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) The symbolic name (to be used in the <code>style</code>
+  attribute of <code>&lt;text&gt;</code> elements),
+<dt><span class="tex-bf">begin</span></dt><dd> (required) LaTeX code to be placed before the text of
+  the object when it is formatted,
+<dt><span class="tex-bf">end</span></dt><dd> (required) LaTeX code to be placed after the text of
+  the object when it is formatted.
+<dt><span class="tex-bf">type</span></dt><dd> (optional) Either <code>label</code> or <code>minipage</code> (the default).
+</dl>
+
+<h3 id="id121">9.4.4 The <span class="tex-tt">&lt;layout&gt;</span> element</h3>
+<p>It defines the layout of the frame on the paper and the paper size. 
+
+<h4 id="id122">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">paper</span></dt><dd> (required) The size of the paper.
+<dt><span class="tex-bf">origin</span></dt><dd> (required) The lower left corner of the frame
+  in the paper coordinate system.
+<dt><span class="tex-bf">frame</span></dt><dd> (required) The size of the frame.
+<dt><span class="tex-bf">skip</span></dt><dd> (optional) The default paragraph skip between textboxes.
+<dt><span class="tex-bf">crop</span></dt><dd> (optional) If the value of <code>crop</code> is <code>yes</code>, Ipe
+  will create a <code>CropBox</code> attribute when saving to PDF.  
+</dl>
+
+<h3 id="id123">9.4.5 The <span class="tex-tt">&lt;titlestyle&gt;</span> element</h3>
+<p>It defines the appearance of the page title on the page.
+
+<h4 id="id124">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">pos</span></dt><dd> (required) The position of the title reference point in the
+  frame coordinate system.
+<dt><span class="tex-bf">color</span></dt><dd> (required)  The color of the title.
+<dt><span class="tex-bf">size</span></dt><dd> (required) The title font size (same as for <code>&lt;text&gt;</code>
+  elements). 
+<dt><span class="tex-bf">halign</span></dt><dd> (optional) The horizontal alignment (same as for <code>&lt;text&gt;</code>
+  elements). 
+<dt><span class="tex-bf">valign</span></dt><dd> (optional) The vertical alignment (same as for <code>&lt;text&gt;</code>
+  elements). 
+</dl>
+
+<h3 id="id125">9.4.6 The <span class="tex-tt">&lt;pagenumberstyle&gt;</span> element</h3>
+<p>It defines the appearance of page numbers on the page.  The contents
+of the element is a <a href="#pagenumberstyle">template for a text object</a>.  
+
+<h4 id="id126">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">pos</span></dt><dd> (required) The position of the page number on the page.
+<dt><span class="tex-bf">color</span></dt><dd> (optional)  The color of the page number.  The default is black.
+<dt><span class="tex-bf">size</span></dt><dd> (optional) The font size (same as for <code>&lt;text&gt;</code>
+  elements).  The default is <span class="tex-tt">normal</span>.
+<dt><span class="tex-bf">halign</span></dt><dd> (optional) The horizontal alignment (same as for <code>&lt;text&gt;</code>
+  elements). 
+<dt><span class="tex-bf">valign</span></dt><dd> (optional) The vertical alignment (same as for <code>&lt;text&gt;</code>
+  elements). 
+</dl>
+
+<h3 id="id127">9.4.7 The <span class="tex-tt">&lt;textpad&gt;</span> element</h3>
+<p>It defines padding around text objects for the computation of bounding
+boxes.  The four required attributes are <span class="tex-tt">left</span>,
+<span class="tex-tt">right</span>, <span class="tex-tt">top</span>, and  <span class="tex-tt">bottom</span>.
+
+<h3 id="id128">9.4.8 The <span class="tex-tt">&lt;pathstyle&gt;</span> element</h3>
+<p>It defines the default setting for path objects.
+
+<h4 id="id129">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">cap</span></dt><dd> (optional) Same as for <code>&lt;path&gt;</code> elements.
+<dt><span class="tex-bf">join</span></dt><dd> (optional) Same as for <code>&lt;path&gt;</code> elements.
+<dt><span class="tex-bf">fillrule</span></dt><dd> (optional) Same as for <code>&lt;path&gt;</code> elements.
+</dl>
+
+<h3 id="id130">9.4.9 The <span class="tex-tt">&lt;opacity&gt;</span> element</h3>
+<p>The <code>opacity</code> element defines a possible opacity value (also
+known as an alpha-value).  All opacity values used in a document must
+be defined in the style sheet.
+
+<h4 id="id131">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) A symbolic name, to be used in the
+  <code>opacity</code> attribute of a <code>text</code> or <code>path</code> element. 
+<dt><span class="tex-bf">value</span></dt><dd> (required) An absolute value for the opacity, between
+  0.001 and&nbsp;1.000. A value of&nbsp;1.0 implies that the element is fully
+  opaque.
+</dl>
+
+<h3 id="id132">9.4.10 The <span class="tex-tt">&lt;gradient&gt;</span> element</h3>
+
+<p>The <code>gradient</code> element defines a gradient pattern.
+
+<h4 id="id133">Attributes of <code>&lt;gradient&gt;</code></h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) The symbolic name (to be used in the
+  <code>gradient</code> attribute of <code>&lt;path&gt;</code> elements).
+<dt><span class="tex-bf">type</span></dt><dd> (required) Possible values are
+<code>axial</code> and <code>radial</code>.
+<dt><span class="tex-bf">extend</span></dt><dd> (optional) <code>yes</code> or <code>no</code> (the default).
+  Indicates whether the gradient is extended beyond the boundaries.
+<dt><span class="tex-bf">coords</span></dt><dd> (required) For axial shading: the coordinates of the
+  endpoints of the axis (in the order <code>x1 y1 x2 y2</code>). For radial
+  shading: the center and radius of both circles (in the order
+  <code>cx1 cy1 r1 cx2 cy2 r2</code>).
+<dt><span class="tex-bf">matrix</span></dt><dd> (optional) A transformation that transforms the gradient
+  coordinate system into the coordinate system of the path object
+  using the gradient. The default is the identity matrix.
+</dl>
+<p>The contents of the <code>&lt;gradient&gt;</code> element are <code>&lt;stop&gt;</code>
+elements defining the color stops of the gradient.  There must be at
+least two stops.  Stops must be defined in increasing offset order.
+It is not necessary that the first offset is&nbsp;0.0 and the last one
+is&nbsp;1.0.
+
+<h4 id="id134">Attributes of <code>&lt;stop&gt;</code></h4>
+<dl class="tex-description"><dt><span class="tex-bf">offset</span></dt><dd> (required) Offset of the color stop (a number between
+  0.0 and 1.0).
+<dt><span class="tex-bf">color</span></dt><dd> (required) Color at this color stop (three
+  numbers). Symbolic names are not allowed.
+</dl>
+
+<h3 id="id135">9.4.11 The <span class="tex-tt">&lt;tiling&gt;</span> element</h3>
+<p>The <code>tiling</code> element defines a tiling pattern.  Only very simple
+patterns that hatch the area with a line are supported.
+
+<h4 id="id136">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) The symbolic name (to be used in the <code>tiling</code>
+  attribute of <code>&lt;path&gt;</code> elements).
+<dt><span class="tex-bf">angle</span></dt><dd> (required) Slope of the hatching line in degrees, between
+  -90 and +90 degrees.
+<dt><span class="tex-bf">width</span></dt><dd> (required) Width of the hatching line.
+<dt><span class="tex-bf">step</span></dt><dd> (required) Distance from one hatching line to the next.
+</dl>
+<p>Here, <code>width</code> and <code>step</code> are measured in the <i>y</i>-direction
+if the absolute value of <code>angle</code> is less than 45&nbsp;degrees, and in
+the <i>y</i>-direction otherwise.
+
+<h3 id="id137">9.4.12 The <span class="tex-tt">&lt;effect&gt;</span> element</h3>
+<p>The <code>effect</code> element defines a graphic effect to be used during a
+PDF page transition.  Acrobat Reader supports these effects, but not
+all PDF viewers do.
+
+<h4 id="id138">Attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) The symbolic name (to be used in the <code>effect</code>
+  attribute of <code>&lt;view&gt;</code> elements).
+<dt><span class="tex-bf">duration</span></dt><dd> (optional) Value must be a real number, indicating the
+  duration of display in seconds.
+<dt><span class="tex-bf">transition</span></dt><dd> (optional) Value must be a real number, indicating the
+  duration of the transition effect in seconds.
+<dt><span class="tex-bf">effect</span></dt><dd> (optional) a number indicated the desired effect.  The
+  value must be an integer between&nbsp;0 and&nbsp;16 (see
+  <code>ipe::Effect::TEffect</code> for the exact meaning).
+</dl>
+
+<h3 id="id139">9.4.13 Other style definition elements</h3>
+<p>The remaining style definition elements are:
+<ul class="tex-itemize"><li><code>&lt;color&gt;</code> Defines a symbolic color.  The value must be an
+  absolute color, that is either a single gray value (between 0 and
+  1), or three components (red, green, blue) separated by space.
+<li><code>&lt;dashstyle&gt;</code> Defines a symbolic dashstyle. The value must
+  be a correct dashstyle description, e.g. <code>[3 5 2 5] 0</code>.
+<li><code>&lt;pen&gt;</code> Defines a symbolic pen width. The value is a single
+  real number.
+<li><code>&lt;textsize&gt;</code> Defines a symbolic text size.  The value is a
+  piece of LaTeX source code selecting the desired font size.
+<li><code>&lt;textstretch&gt;</code> Defines a symbolic text stretch factor. The
+  symbolic name is shared with <code>&lt;textsize&gt;</code> elements. The value
+  is a single real number.
+<li><code>&lt;symbolsize&gt;</code> Defines a symbolic size for symbols. The value
+  is a single real number, and indicates the scaling factor used for
+  the symbol.
+<li><code>&lt;arrowsize&gt;</code> Defines a symbolic size for arrows. The value
+  is a single real number.
+<li><code>&lt;gridsize&gt;</code> Defines a grid size.  The symbolic name cannot
+  actually be used by objects in the document &mdash; it is only used to
+  fill the grid size selector in the user interface.
+<li><code>&lt;anglesize&gt;</code> Defines an angular snap angle.  The symbolic
+  name cannot actually be used by objects in the document &mdash; it is
+  only used to fill the angle selector in the user interface.
+</ul>
+
+<h4 id="id140">Common attributes</h4>
+<dl class="tex-description"><dt><span class="tex-bf">name</span></dt><dd> (required) A symbolic name, which must start with a
+  letter 'a' to 'z' or 'A' to 'Z'.
+<dt><span class="tex-bf">value</span></dt><dd> (required) A legal absolute value for the type of
+  attribute.
+</dl>
+
+<h1 id="id141">10 Using Ipe figures in Latex</h1>
+
+<p>If&mdash;like many Latex users nowadays&mdash;you are a user of Pdflatex you
+can include Ipe figures in PDF format in your Latex documents
+directly.
+<p>The standard way of including PDF figures is using the <code>graphicx</code>
+package. If you are not familiar with it, here is a quick overview.
+In the preamble of your document, add the declaration:
+<pre class="tex-verbatim">
+  \usepackage{graphicx}
+</pre>
+One useful attribute to this declaration is <code>draft</code>, which stops
+LaTeX from actually including the figures&mdash;instead, a rectangle
+with the figure filename is shown:
+<pre class="tex-verbatim">
+  \usepackage[draft]{graphicx}
+</pre>
+<p>To include the figure "figure1.pdf, you use the command:
+<pre class="tex-verbatim">
+  \includegraphics{figs/figure1}
+</pre>
+Note that it is common <span class="tex-emph">not</span> to specify the file extension
+".pdf".  The command <code>\includegraphics</code> has various options to
+scale and rotate the figure.  For instance, to scale the same figure
+to 50&#37;, use:
+<pre class="tex-verbatim">
+  \includegraphics[scale=0.5]{figs/figure1}
+</pre>
+To scale such that the width of the figure becomes 5&nbsp;cm:
+<pre class="tex-verbatim">
+  \includegraphics[width=5cm]{figs/figure1}
+</pre>
+Instead, one can specify the required height with <code>height</code>.
+<p>Here is an example that scales a figure to 200&#37; and rotates it by
+45&nbsp;degrees counter-clockwise.  Note that the scale argument should be
+given <span class="tex-emph">before</span> the <code>angle</code> argument.
+<pre class="tex-verbatim">
+  \includegraphics[scale=2,angle=45]{figs/figure1}
+</pre>
+<p>Let's stress once again that these commands are the standard commands
+for including PDF figures in a LaTeX document.  Ipe files neither
+require nor support any special treatment.  If you want to know more
+about the LaTeX packages for including graphics and producing
+colour, check the <code>grfguide.tex</code> document that is probably
+somewhere in your TeX installation.
+<p><hr />
+<p>There is a slight complication here: Each page of a PDF document can
+carry several "bounding boxes", such as the <span class="tex-emph">MediaBox</span> (which
+indicates the paper size), the <span class="tex-emph">CropBox</span> (which indicates how the
+paper will by cut), or the <span class="tex-emph">ArtBox</span> (which indicates the extent
+of the actual contents of the page).  Ipe automatically saves, for
+each page, the paper size in the <span class="tex-emph">MediaBox</span>, and a bounding box
+for the drawing in the <span class="tex-emph">ArtBox</span>.  Ipe also puts the bounding box
+in the <span class="tex-emph">CropBox</span> unless this has been turned off by the stylesheet.
+<p>Now, when including a PDF figure, Pdflatex will (by default) first
+look at the CropBox, and, if that is not set, fall back on the
+MediaBox.  It does not inspect the ArtBox, and so it is important that
+you use the correct stylesheet for the kind of figure you are
+making&mdash;with cropping for figures to be included, without cropping
+for presentations (as otherwise Acrobat Reader will not display full
+pages&mdash;Acrobat Reader actually crops each page to the CropBox).
+<p>If you have a recent version of Pdflatex (1.40 or higher), you can
+actually ask Pdflatex to inspect the ArtBox by saying
+<code>\pdfpagebox5</code> in your Latex file's preamble.
+<p><hr />
+<p>If you are still using the "original" Latex, which compiles
+documents to DVI format, you need figures in Encapsulated Postscript
+(EPS) format (the "Encapsulated" means that there is only a single
+Postscript page and that it contains a bounding box of the figure).
+Some publishers may also require that you submit figures in EPS
+format, rather than in PDF.
+<p>Ipe allows you to export your figure in EPS format, either from the
+Ipe program (<span class="tex-emph">File</span> menu, <span class="tex-emph">Export as EPS</span>), or by using the
+command line tool <span class="tex-emph">iperender</span> with the <span class="tex-tt">-eps</span> option.
+Remember to keep a copy of your original Ipe figure!  Ipe cannot read
+the exported EPS figure, you will not be able to edit thema any further.
+<p>Including EPS figures works exactly like for PDF figures, using
+<code>\includegraphics</code>.  In fact you can save all your figures in
+both EPS and PDF format, so that you can run both Latex and Pdflatex
+on your document&mdash;when including figures, Latex will look for the EPS
+variant, while Pdflatex will look for the PDF variant. (Here it comes
+in handy that you didn't specify the file extension in the
+<code>\includegraphics</code> command.)
+<p>It would be cumbersome to have to export to EPS every time you modify
+and save an Ipe figure in PDF format.  What you should do instead is
+to write a shell script or batch file that calls
+<a href="#id142">iperender</a> to export to EPS.
+<p><hr />
+<p>On the other hand, if you <span class="tex-emph">only</span> use Pdflatex, you might opt to
+exploit a feature of Pdflatex: You can keep all the figures for a
+document in a single, multi-page Ipe document, with one figure per
+page.  You can then include the figures one by one into your document
+by using the <code>page</code> argument of <code>\includegraphics</code>.
+<p>For example, to include page&nbsp;3 from the PDF file "figures.pdf"
+containing several figures, you could use
+<pre class="tex-verbatim">
+  \includegraphics[page=3]{figures}
+</pre>
+
+<h1 id="id142">11 The command line programs</h1>
+
+
+<h2 id="id143">11.1 Ipe</h2>
+<p>Ipe supports the following command line options:
+<dl class="tex-description"><dt><span class="tex-bf"><code>-sheet</code> <span class="tex-emph">style sheet name</span></span></dt><dd>
+  Adds the designated style sheet to any newly created documents.
+<dt><span class="tex-bf"><code>-show-configuration</code></span></dt><dd>
+  With this option, Ipe will display the current configuration options
+  on stdout, and terminate.
+</dl>
+In addition, you can specify the name of an Ipe file to open on the
+command line.  
+
+<h2 id="id144">11.2 Ipetoipe: converting Ipe file formats</h2>
+<p>The auxiliary program <span class="tex-emph">ipetoipe</span> converts between the different
+Ipe file formats:
+<pre class="tex-verbatim">
+  ipetoipe ( -xml | -pdf ) { &lt;options&gt; } infile [ outfile ]
+</pre>
+The first argument determines the format of the output file.  If no
+output filename is provided, Ipe will try to guess it by appending one
+of the extensions "ipe" or "pdf" to the input file's basename.
+<p>For example, the command line syntax
+<pre class="tex-verbatim">
+  ipetoipe -pdf figure1.ipe
+</pre>
+converts <span class="tex-emph">figure1.ipe</span> to <span class="tex-emph">figure1.pdf</span>.
+<p>Ipetoipe understands the following options:
+<dl class="tex-description"><dt><span class="tex-bf"><code>-export</code></span></dt><dd> No Ipe markup is included in the resulting
+  output file.  Ipe will not be able to open a file created that way,
+  so make sure you keep your original!
+<dt><span class="tex-bf"><code>-markedview</code></span></dt><dd> (PDF only) <br />Only the marked views of
+  marked Ipe pages will be created in PDF format.  If all views of a
+  marked page are unmarked, the last view is exported. This is
+  convenient to make handouts for slides.
+<dt><span class="tex-bf"><code>-pages</code> from-to</span></dt><dd> (PDF only) <br />Restrict exporting to PDF to this page range.  This implies  the
+  <code>-export</code> option.
+<dt><span class="tex-bf"><code>-view</code> page-view</span></dt><dd> Only export this single view from the  document.   This  implies
+  the <code>-export</code> option.
+<dt><span class="tex-bf"><code>-runlatex</code></span></dt><dd>
+  Run  Latex even for XML output. This has the effect of including
+  the dimensions of each text object in the XML file.
+<dt><span class="tex-bf"><code>-nozip</code></span></dt><dd> 
+  Do not compress streams in PDF output.
+</dl>
+
+<h2 id="id145">11.3 Iperender: exporting to a bitmap, EPS, or SVG</h2>
+<p>The program <span class="tex-emph">iperender</span> exports a page of the document to a
+bitmap in PNG format, to a figure in Encapsulated Postscript (EPS), or
+to scalable vector graphics in SVG format.  (Of course the result
+contains no Ipe markup, so make sure you keep your original!)  For
+instance, the following command line
+<pre class="tex-verbatim">
+  iperender -png -page 3 -resolution 150 presentation.pdf pres3.png
+</pre>
+converts page&nbsp;3 of the Ipe document <code>presentation.pdf</code> to a
+bitmap, with resolution <i>150</i> pixels per inch.
+
+<h2 id="id146">11.4 Ipeextract: extract XML stream from Ipe file</h2>
+<p>Ipeextract extracts the XML stream from an PDF or EPS file made by
+Ipe&nbsp;6 or&nbsp;7 and saves it in a file.  It will work even if Ipe cannot
+actually parse the file, so you can use this tool to debug problems
+where Ipe fails to open your document.
+<pre class="tex-verbatim">
+ipeextract infile [ outfile ]
+</pre>
+If not provided, the outfile is guessed by appending "xml" to the
+infile's basename.
+
+<h2 id="id147">11.5 Ipe6upgrade: convert Ipe&nbsp;6 files to Ipe&nbsp;7 file format</h2>
+<p>Ipe6upgrade takes as input a file created by any version of Ipe&nbsp;6, and
+saves in the format of Ipe&nbsp;7.0.0.
+<pre class="tex-verbatim">
+ipe6upgrade infile [ outfile ]
+</pre>
+If not provided, the outfile is guessed by adding the extension
+"ipe" to the infile's basename.
+<p>To reuse an Ipe&nbsp;6 document in EPS or PDF format, you first run
+"ipeextract", which extracts the XML stream inside the document and
+saves it as an XML file.  The Ipe&nbsp;6 XML document can then be converted
+to Ipe&nbsp;7 format using "ipe6upgrade".
+<p>If your old figure is <span class="tex-emph">figure.pdf</span>, then the command
+<pre class="tex-verbatim">
+ipeextract figure.pdf
+</pre>
+will save the XML stream as <span class="tex-emph">figure.xml</span>.  Then run 
+<pre class="tex-verbatim">
+ipe6upgrade figure.xml
+</pre>
+which will save your document in Ipe&nbsp;7 format as <span class="tex-emph">figure.ipe</span>.
+All contents of the original document should have been preserved.
+
+<h2 id="id148">11.6 Ipescript: running Ipe scripts</h2>
+<p>Ipescript runs an Ipe script written in the Lua language with bindings
+for the Ipe objects, such as the script "update-master".  Ipescript
+automatically finds the script in Ipe's script directories.  On Unix,
+you can place your own scripts in <span class="tex-emph">&#36;HOME/.ipe/scripts</span>.
+<p>The Ipe distribution contains the following scripts:
+<ul class="tex-itemize"><li><span class="tex-emph">update-master</span>, explained 
+  <a href="#sec:sharing">earlier</a>;
+<li><span class="tex-emph">add-style</span> to add a stylesheet to Ipe figures;
+<li><span class="tex-emph">update-styles</span> to update the stylesheets in Ipe figures
+  (in the same way that Ipe does it using the "Update stylesheets"
+  function). 
+</ul>
+
+<h2 id="id149">11.7 Importing other formats</h2>
+
+<h4 id="id150">Svgtoipe: Importing SVG figures</h4>
+
+<p>The auxiliary program <span class="tex-emph">svgtoipe</span> converts an SVG figure to Ipe
+format. It cannot handle all SVG features (many SVG features are not
+supported by Ipe anyway), but it works for gradients.
+<p><span class="tex-emph">svgtoipe</span> is not part of the Ipe source distribution. You can
+download it separately.
+
+<h4 id="id151">Pdftoipe: Importing Postscript and PDF</h4>
+
+<p>You can convert arbitrary Postscript or PDF files into Ipe documents,
+making them editable.  The auxiliary program <span class="tex-emph">pdftoipe</span> converts
+(pages from) a PDF file into an Ipe XML-file. (If your source is
+Postscript, you have to first convert it to PDF using Acrobat
+Distiller or <span class="tex-emph">ps2pdf</span>.)  Once converted to XML, the file can be
+opened from Ipe as usual.
+<p>The conversion process should handle any graphics in the PDF file
+fine, but doesn't do very well on text&mdash;Ipe's text model is just too
+different.
+<p><span class="tex-emph">pdftoipe</span> is not part of the Ipe source distribution. You can
+download and build it separately.
+
+<h4 id="id152">Ipe5toxml: convert Ipe&nbsp;5 files to Ipe&nbsp;6 file format</h4>
+<p>If you still have figures that were created with Ipe&nbsp;5, you can use
+<span class="tex-emph">ipe5toxml</span> to convert them to Ipe&nbsp;6 format.  You can then use
+<span class="tex-emph">ipe6upgrade</span> to convert them to Ipe&nbsp;7 format.
+<p><span class="tex-emph">ipe5toxml</span> is not part of the Ipe distribution, but available as
+a separate download.
+
+<h4 id="id153">Figtoipe: Importing FIG figures</h4>
+
+<p>The auxiliary program <span class="tex-emph">figtoipe</span> converts a figure in FIG format
+into an Ipe XML-file.  This is useful if you used to make figures with
+Xfig before discovering Ipe, of if your co-authors made figures for
+your article with Xfig (converting them will have the added benefit of
+forcing your co-authors to learn to use Ipe).  Finally, there are
+quite a number of programs that can export to FIG format, and
+<span class="tex-emph">figtoipe</span> effectively turns that into the possibility of
+exporting to Ipe.
+<p>However, <span class="tex-emph">figtoipe</span> is not quite complete.  The drawing models of
+FIG and Ipe are also somewhat different, which makes it impossible to
+properly render some FIG files in Ipe.  In particular, Ipe does not
+support interpolation splines, depth ordering independent of grouping,
+pattern fill, and Postscript fonts.
+<p>You may therefore have to edit the file after conversion.
+<p><span class="tex-emph">figtoipe</span> is not part of the Ipe distribution. You can download
+and build it separately. <span class="tex-emph">figtoipe</span> is now maintained by
+Alexander B&uuml;rger.
+
+<h1 id="sec:acknowledgments">12 History and acknowledgments</h1>
+
+<p>The name "Ipe" is older than the program itself.  When I made
+figures for my papers using Idraw in 1992, I was annoyed that I had to
+store two versions of each figure: one with Latex text, one with
+Postscript information.  I came up with a file format that I called
+"Ipe", for "Integrated Picture Environment", and which was at the
+same time legal Latex source code and a legal Postscript file.
+<p>When I wrote the first version of Ipe at Utrecht University in the
+summer of 1993, it created this file format directly, and inherited
+the name.  The first versions of Ipe (Ipe&nbsp;2.0 up to&nbsp;4.1) were based on
+my experiences with Idraw, XFig, and Jean-Pierre Merlet's JPDraw, used
+IRIS-GL and Mark Overmars' FORMS library, and run on SGI workstations
+only.
+<p>Due to popular demand, I spent two weeks in the summer of&nbsp;1994 to
+teach myself Motif and to rewrite Ipe to run under the X&nbsp;window
+system.  Unfortunately, two weeks were really not enough, and the 1994
+X-version of Ipe was somewhat of a hack.  I didn't have time to port
+the code that displayed bitmaps on the screen, it crashed on both
+monochrome and truecolor (24-bit) displays, and was in general quite
+unmaintainable.
+<p>These versions of Ipe were supported by the Netherlands' Organization
+for Scientific Research&nbsp;(NWO), and I would never have started working
+on it without Geert-Jan Giezeman's PLAGEO&nbsp;library.  For testing,
+support, and inspiration in that original period, I'm grateful to Mark
+de Berg, Maarten Pennings, Jules Vleugels, Vincenzo Ferrucci, and Anil
+Rao.  Many students of the department at Utrecht University served as
+alpha-testers (who apparently referred to Ipe as "the cute little
+core-dumper").
+<p>I gave a presentation about Ipe at the Dagstuhl Workshop on
+Computational Geometry in 1995, and made a poster presentation at the
+ACM Symposium on Computational Geometry in Vancouver in the same year.
+Both served to create a small but faithful community of Ipe addicts
+within the Computational Geometry community.
+<p>Ipe proved itself invaluable to me over the years, especially when we
+used it to make all the illustrations in our book "Computational
+Geometry: Algorithms and Applications" (Springer 1997, with Mark de
+Berg, Marc van Kreveld, and Mark Overmars).  Nevertheless, the
+problems were undeniable: It was hard to compile Ipe on other C++
+compilers and it only worked on 8-bit displays.  It was only due to
+the efforts of Ipe fans such as Tycho Strijk, Robert-Paul Berretty,
+Alexander Wolff, and Sariel Har-Peled that the 1994 version of Ipe
+continued to be used until&nbsp;2003.
+<p>I was teaching myself C++ while writing the first version of Ipe, and
+it showed&mdash;Ipe&nbsp;5 was full of elementary object-oriented design
+mistakes.  When teaching C++ to second-year students at Postech in
+1996 I started to think about a clean rewrite of Ipe.  My first notes
+on such a rewrite stem from evenings spent at a hotel in Machida,
+close to IBM Tokyo in July&nbsp;1996 (the idea at that time was to embed
+Ipe into Emacs!).  It proved impossible, though, to do a full rewrite
+next to teaching and research, and nothing really happened until the
+Dagstuhl Workshop on Computational Geometry in&nbsp;2001, where Christian
+Knauer explained to me how to use Pdflatex to create presentations. I
+realized that PDF was ideally suited for a new version of Ipe. 
+<p>Ipe&nbsp;5 figures were at the same time Latex and Postscript files, and
+required special handling to be included into Latex documents, which
+sometimes required a bit of explaining when talking to co-authors or
+publishers.  While editing a figure, Ipe&nbsp;5 kept a Ghostscript window
+open that would show what the figure looked like after processing by
+Latex.  
+<p>Several developments that had happened between 1993 and 2001 allowed me
+to use a completely new approach: First, H&agrave;n Th&ecirc; Th&agrave;n's Pdflatex takes Latex
+source and directly produces a PDF file with a PDF representation of
+the text and all necessary fonts.  Second, Derek Noonburg's&nbsp;Xpdf
+contained an open-source PDF parser that I could use to parse this PDF
+representation and to extract the processed text and fonts.  Third,
+all relevant Latex fonts are now available as scalable Type1 fonts,
+and so it is possible to embed Latex text and formulas in figures that
+may still need to be scaled later.  Finally, the Ghostscript window
+was no longer necessary as Ipe could use the beautiful Freetype
+library to directly display the text on-screen as it will appear on
+paper. 
+<p>Directly after the Dagstuhl workshop I implemented a proof-of-concept:
+I defined the Ipe XML format (there was no question that Ipe&nbsp;6 would
+have to be able to communicate in XML, of course), wrote "ipe5toxml"
+(reusing my old Ipe parsing code) and a program that runs Pdflatex,
+parses its PDF output, extracts text objects and font data, and
+creates a PDF file for the whole Ipe figure.
+<p>All that remained to be done was to rewrite the user interface.  Mark
+de Berg and the TU Eindhoven made it possible for me to take some time
+off from teaching and research.  The final design changes were made
+during the Second McGill-INRIA Workshop on Computational Geometry in
+Computer Graphics at McGill's Bellairs Research Institute in February
+2003, and much inspiration was due to the atmosphere at the workshop
+and the magnificient cooking by Gwen, Bellair's chef.  An early
+preview of Ipe&nbsp;6.0 was "formally" released at the Dagstuhl Workshop
+on Computational Geometry in March&nbsp;2003, to celebrate the Dagstuhl
+influence on Ipe.
+<p>Other than the file format, there weren't really that many changes to
+Ipe's functionality between Ipe&nbsp;5 and Ipe&nbsp;6.  Ren&eacute; van Oostrum
+insisted that no self-respecting drawing program can do without style
+sheets and layers.  Views allow you to incrementally build up a page
+in a PDF presentation. 
+<p>I also revised the interface to ipelets (which used to be called
+"Iums" in the good old days when people still thought that
+"applets" were small apples)&mdash;it is now based on dynamically loaded
+libraries (a technology that was still somewhat poorly understood in
+the early nineties, at least by me).  
+<p>And, of course, there was a Windows version of Ipe&nbsp;6.  Who would have
+thought that ten years earlier!
+<p>There were many releases of Ipe&nbsp;6.0, all of them called "previews",
+because I never considered that I had reached a stable state.  A
+number of experimental features were tried and either built into Ipe
+or discarded.  Ipe&nbsp;6 migrated from Qt&nbsp;2 and Qt&nbsp;3 to Qt&nbsp;4, a somewhat
+painful process due to a number of annyoing Qt&nbsp;bugs that cost me a lot
+of time. 
+<p>When in 2007 I discovered the fantastic Cairo library for rendering, I
+immediately decided to switch Ipe to use this: a small dedicated
+library with a nice API to do the rendering, instead of the buggy
+monster that was&nbsp;Qt.  The Cairo API fit Ipe so well that I could write
+a Cairo painter for Ipe in an hour or so.  Cairo supports Freetype
+directly, instead of Ipe having to render each glyph into a bitmap
+that is then blit onto the canvas. 
+<p>I made the huge mistake of announcing on the Ipe discussion list that
+Ipe&nbsp;6.0 preview&nbsp;28 was the last version of Ipe&nbsp;6, and that there would
+soon be a new version, Ipe&nbsp;7.  I should have known that this was
+impossible during a time where I advised several graduate students,
+taught several new courses, and went through the tenure process.  
+I had to release several bugfix releases of Ipe&nbsp;6 while really wanting
+to work on Ipe&nbsp;7.
+<p>However, the delay left me with enough time to carefully think about
+another change I wanted to make: It would be nice if Ipe embedded a
+scripting language that could be used to write simple ipelets without
+compilation.  I looked at Scheme/Guile, Python, and Lua, and finally
+decided for Lua: a small, elegant, stable language with a tiny
+footprint, easily embedded with a very nice C interface.
+<p>In 2009, I had my first sabbatical ever, which I spent in the group of
+Ulrik Brandes at the University of Konstanz.  Here I finally had the
+time to work on Ipe&nbsp;7, and I'm very grateful to Ulrik and all members
+of his group for the wonderful time I had in Konstanz.  Next to the
+two big changes mentioned above, Ipe&nbsp;7 introduced tiling patterns,
+gradients, clipping paths, transparency, user-definable arrows and
+marks, and SVG output.
+<p>I wanted to avoid Qt in Ipe&nbsp;7 as it had caused me quite a bit of pain
+during the life of Ipe&nbsp;6, but it was hard to find a good replacement
+that would allow Ipe to run on Linux, Windows, and Macs.  During the
+Korean Workshop on Computational Geometry organized by Tetsuo Asano at
+Hakusan seminar house in June&nbsp;2009, I discussed using Ipe on tablet
+PCs with Vida Dujmovic, Jit Bose, and Stefan Langerman.  It is their
+fault that Ipe&nbsp;7 comes with a tablet input tool, and finally Stefan
+and S&eacute;bastien Collette convinced me that there isn't really an
+alternative to Qt that has the same support for tablets and Macs.  So
+Ipe&nbsp;7 is still using Qt, but in a much more restricted way than
+before&mdash;it turned out that this part of Qt is quite stable and not
+prone to new bugs.
+<p>Even though I was only using a small part of Qt to create the UI, I
+still had to bundle the huge Qt&nbsp;library, ten times the size of Ipe
+itself, with Ipe's binary builds for Windows and OSX. This bothered
+me, since of course Windows and OSX already provide all the
+functionality for building UIs natively.  After some experimentation
+with building simple UIs in Windows and GTK, I settled on a new
+architecture where the UI library would only be used in the Ipe
+program itself, in the Ipe canvas, and in the small Lua library ipeui
+that can be used to build dialogs from Lua (and which is entirely
+independent of Ipe).  The native Windows UI was finished while I was
+visiting Emo Welzl in Zurich in early 2015, on a small Windows-tablet,
+and was first released in Ipe&nbsp;7.1.7.  During my sabbatical at Bayreuth
+University in 2016 Christian Knauer and his group provided me with a
+Mac in my office, providing both the opportunity and the time to learn
+Objective&nbsp;C and Cocoa.  Ipe&nbsp;7.2.1 was released in Bayreuth with the
+first native OSX UI.
+
+<h1 id="sec:copyright">13 Copyright</h1>
+
+<p>Ipe is "free," this means that everyone is free to use it and free
+to redistribute it on certain conditions. Ipe is not in the public
+domain; it is copyrighted and there are restrictions on its
+distribution as follows:
+<p>Copyright &#169; 1993&ndash;2019 Otfried Cheong
+<p>This program is free software; you can redistribute it and/or modify
+it under the terms of the <span class="tex-sc">Gnu</span> General Public License as
+published by the Free Software Foundation; either version 3 of the
+License, or (at your option) any later version.
+<p>As a special exception, you have permission to link Ipe with the CGAL
+library and distribute executables, as long as you follow the
+requirements of the Gnu General Public License in regard to all of the
+software in the executable aside from CGAL.
+<p>This program is distributed in the hope that it will be useful, but
+<span class="tex-emph">without any warranty</span>; without even the implied warranty of
+<span class="tex-emph">merchantability</span> or <span class="tex-emph">fitness for a particular purpose</span>.
+See the <a href="http://www.gnu.org/copyleft/gpl.html"><span class="tex-sc">Gnu</span> General Public
+  License</a> for more details.
+</div>
+</div></body></html>
